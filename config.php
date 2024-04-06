@@ -1,6 +1,6 @@
 <?php
 define("HOST", "localhost");
-define("DB", "db_kinhdoanh");
+define("DB", "luxe_database");
 define("USER", "root");
 define("PASSWORD", "");
 ?>
