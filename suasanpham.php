@@ -47,7 +47,6 @@
         if(isset($_GET["id"])){
           $_idsp = $_GET["id"];
           $sql = "select * from tbl_sanpham where ma_san_pham=".$_idsp;
-          //echo $sql;
           $result = chayTruyVanTraVeDL($link,$sql);
           //Lấy dữ liệu từ trong DB ra
           $row = mysqli_fetch_assoc($result);
@@ -62,7 +61,6 @@
                 </div>
                 <div class="form-group">
                   <label for="danhmuc" class="form-label">Danh mục</label>
-                  <!-- <input type="text" id="DanhMuc" class="form-input" /> -->
                   <select name="danhmuc" id="danhmuc" class="form-input" <?php if ($_thao_tac == "edit") { echo "<option value=".$row_sp['ma_danh_muc']." selected>".$rows['ten_danh_muc']."</option>" ;} ?>>
                   <?php
                     $link = null;
@@ -161,7 +159,6 @@
                   echo "</table>";
                   giaiPhongBoNho($link,$result);
                 }
-                // mysqli_free_result($result);   
                 ?>  
               </div>    
               <div class="edit-action">

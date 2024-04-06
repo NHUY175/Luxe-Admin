@@ -47,7 +47,6 @@
           </div>
           <div class="form-group">
             <label for="danhmuc" class="form-label">Danh mục</label>
-            <!-- <input type="text" id="DanhMuc" class="form-input" /> -->
             <select name="danhmuc" id="danhmuc" class="form-input">
               <?php
               $link = null;
