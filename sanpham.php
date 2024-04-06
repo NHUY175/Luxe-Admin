@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vn">
   <head>
     <!-- Chỉnh biểu tượng web -->
     <link href="./icon/Logo.svg" rel="shortcut icon" />
@@ -11,16 +11,17 @@
       href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"
       rel="stylesheet"
     />
-    <!-- Styles -->
+    <!-- Styles CSS -->
+    <!-- File reset đảm bảo kích thước hiển thị website giữa các trình duyệt khác nhau -->
     <link rel="stylesheet" href="css/reset.css" />
+    <!-- File định dạng các page sản phẩm -->
     <link rel="stylesheet" href="css/sanpham.css" />
-    <!-- Scripts -->
-    <script src="./js/scripts.js"></script>
   </head>
   <body>
     <!-- Header -->
     <?php
-      require_once "db_module.php";  
+      // File kết nối CSDL + header
+      require_once "db_module.php"; 
       include "header.php";   
     ?>
     <?php
@@ -56,13 +57,13 @@
           <option value="1">Tên Sản phẩm</option>
         </select>
         <input type="text" name="giatri" id="data" class="filter-input" />
-        <input type="image" src="./icon/search.svg" class="filter-btn">
+        <input type="image" src="./icon/sanpham-search.svg" class="filter-btn">
       </form>
       <!-- Table -->
       <table class="product-list">
         <thead>
           <tr>
-            <th onclick='delete_san_pham("abc")'>Mã sản phẩm</th>
+            <th>Mã sản phẩm</th>
             <th>Tên sản phẩm</th>
             <th>Hình ảnh</th>
             <th>Trạng thái</th>
@@ -86,12 +87,12 @@
             FROM tbl_sanpham AS s, tbl_bienthe AS bt
             WHERE s.ma_san_pham = bt.ma_san_pham
             GROUP BY s.ma_san_pham
-            LIMIT $sanpham_start, 10");
+            LIMIT $sanpham_start, 10");//Giới hạn mỗi trang show 10 sản phẩm
             while ($row = mysqli_fetch_assoc($result)) {
               echo "<tr>";
               echo "<td>" . $row["ma_san_pham"] . "</td>";
               echo "<td>" . $row["ten_san_pham"] . "</td>";
-              // Assuming 'img' is the directory relative to the current file
+              //img là file chứa hình ảnh
               echo "<td><img src='./img/" . $row["hinh_anh_1"] . "'></td>";
               if($row["trang_thai"]==1){
                 echo "<td>Hiển thị</td>";
@@ -109,7 +110,7 @@
               echo "<td>" . $row["tong_so_luong"] . "</td>";
               echo "<td>";
               echo "<div class='action'>";
-              echo "<a href='suasanpham.php?id=".$row["ma_san_pham"]."'><img src='./icon/sanpham-edit.svg' alt='Sửa' /></a>";    
+              echo "<a href='suasanpham.php?id=".$row["ma_san_pham"]."'><img src='./icon/sanpham-edit.svg' alt='Sửa' /></a>";   //Dẫn qua page thêm sửa sản phẩm với tham số mã sản phẩm trên URL 
               echo "<a href='?opt=del_sp&id=".$row["ma_san_pham"]."' onclick='return confirm(\"Bạn có chắc chắn muốn xoá sản phẩm ".$row["ten_san_pham"]."?\");'><img src='./icon/sanpham-delete.svg' alt='Xóa' /></a>";  
               echo "</div>";
               echo "</td>";
@@ -121,19 +122,19 @@
           function search_sp() {
             $link = null;
             taoKetNoi($link);
-            //Kiểm tra có phương thức POST gửi lên hay không
+            //Kiểm tra có phương thức POST gửi lên hay không - bắt đầU khi click nút search > submit pt POST
             if(isset($_POST)){
               $_dieukien = $_POST["dieukien"];
               $_giatri = $_POST["giatri"];
               if ($_dieukien == 0) {
-                //Tạo câu lệnh SQL  
+                //Tạo câu lệnh SQL search mã sản phẩm
                 $sql = "SELECT s.ma_san_pham, s.ten_san_pham, s.hinh_anh_1, s.gia_goc, s.gia_giam, SUM(bt.so_luong) AS tong_so_luong
                         FROM tbl_sanpham AS s, tbl_bienthe AS bt
                         WHERE s.ma_san_pham = bt.ma_san_pham
                         AND s.ma_san_pham = $_giatri";                                             
               }
               else if ($_dieukien == 1) {
-                //Tạo câu lệnh SQL  
+                //Tạo câu lệnh SQL search tên sản phẩm
                 $sql = "SELECT s.ma_san_pham, s.ten_san_pham, s.hinh_anh_1, s.gia_goc, s.gia_giam, SUM(bt.so_luong) AS tong_so_luong
                         FROM tbl_sanpham AS s, tbl_bienthe AS bt
                         WHERE s.ma_san_pham = bt.ma_san_pham AND s.ten_san_pham LIKE '%".$_giatri."%'
@@ -142,7 +143,8 @@
               $rs = chayTruyVanTraVeDL($link, $sql);
               while ($row = mysqli_fetch_assoc($rs)) {
                 if ($row["ma_san_pham"] == null) {
-                  echo "Không tồn tại ...";
+                  echo "<script>alert('Sản phẩm không tồn tại!');</script>";
+                  echo "<script>window.location.href = 'sanpham.php?opt=view_sp';</script>";
                 }
                 else {
                   echo "<tr>";
@@ -177,6 +179,7 @@
             taoKetNoi($link);
             if(isset($_GET["id"])){
                 $_ma_san_pham = $_GET["id"];
+                // Xoá biến thể của sản phẩm trước khi xoá sản phẩm
                 $sql_0 = "DELETE from tbl_bienthe where ma_san_pham=".$_ma_san_pham;
                 chayTruyVanKhongTraVeDL($link,$sql_0);
                 $sql_1 = "DELETE from tbl_sanpham where ma_san_pham=".$_ma_san_pham;
@@ -261,10 +264,10 @@
                   //Kiểm tra insert
                   if($rs2){
                     echo "<script>alert('Thêm thành công');</script>";
-                    header("Location: sanpham.php?opt=view_sp");
+                    echo "<script>window.location.href = 'sanpham.php?opt=view_sp';</script>";
                   }else{
                     echo "<script>alert('Thêm thất bại');</script>";
-                    header("Location: sanpham.php?opt=view_sp");
+                    echo "<script>window.location.href = 'sanpham.php?opt=view_sp';</script>";
                   }
                 }
               }
@@ -334,10 +337,10 @@
               //Kiểm tra update
               if($rs2){
                 echo "<script>alert('Cập nhật thành công');</script>";
-                header("Location: sanpham.php?opt=view_sp");
+                echo "<script>window.location.href = 'sanpham.php?opt=view_sp';</script>";
               }else{
                 echo "<script>alert('Cập nhật thất bại');</script>";
-                header("Location: sanpham.php?opt=view_sp");
+                echo "<script>window.location.href = 'sanpham.php?opt=view_sp';</script>";
               }
             }
             giaiPhongBoNho($link,$rs);
