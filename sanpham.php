@@ -74,6 +74,8 @@
           </tr>
         </thead>
         <tbody>
+          
+        <?php ?>
         <?php
           //View
           function view_sp() {
