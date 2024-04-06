@@ -24,7 +24,7 @@
           <!-- Action -->
           <div class="top-act">
             <button class="top-act-btn">
-              <img src="./icon/user.svg" alt="" />
+              <img src="./icon/header-user.svg" alt="" />
             </button>
           </div>
         </div>

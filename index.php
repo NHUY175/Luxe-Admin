@@ -26,7 +26,7 @@
     <section id="page-title">
       <div class="index_main">
         <div class="home-title">
-          <img src="./icon/home.svg" alt="" />
+          <img src="./icon/index-home.svg" alt="" />
           <h1 class="title">Thông tin chung</h1>
         </div>
       </div>
@@ -38,7 +38,7 @@
         <div class="home-row">
           <!-- Item 1 -->
           <div class="home-item">
-            <img src="./icon/collection.svg" alt="" />
+            <img src="./icon/index-collection.svg" alt="" />
             <div class="item">
               <h2 class="item-title">Danh mục sản phẩm</h2>
               <!-- Hiển thị số lượng danh mục từ database -->
@@ -56,7 +56,7 @@
           </div>
           <!-- Item 2 -->
           <div class="home-item">
-            <img src="./icon/diamond.svg" alt="" />
+            <img src="./icon/index-diamond.svg" alt="" />
             <div class="item">
               <h2 class="item-title">Sản phẩm</h2>
               <!-- Hiển thị số lượng sản phẩm từ database -->
@@ -74,7 +74,7 @@
           </div>
           <!-- Item 3 -->
           <div class="home-item">
-            <img src="./icon/shopping-bag.svg" alt="" />
+            <img src="./icon/index-shopping-bag.svg" alt="" />
             <div class="item">
               <h2 class="item-title">Đơn hàng</h2>
               <!-- Hiển thị số lượng đơn hàng từ database -->
@@ -95,7 +95,7 @@
         <div class="home-row">
           <!-- Item 4 -->
           <div class="home-item">
-            <img src="./icon/customer.svg" alt="" />
+            <img src="./icon/index-customer.svg" alt="" />
             <div class="item">
               <h2 class="item-title">Khách hàng</h2>
               <!-- Hiển thị số lượng khách hàng từ database -->
@@ -113,7 +113,7 @@
           </div>
           <!-- Item 5 -->
           <div class="home-item">
-            <img src="./icon/staff.svg" alt="" />
+            <img src="./icon/index-staff.svg" alt="" />
             <div class="item">
               <h2 class="item-title">Nhân viên</h2>
                <!-- Hiển thị số lượng nhân viên từ database -->
@@ -131,7 +131,7 @@
           </div>
           <!-- Item 6 -->
           <div class="home-item">
-            <img src="./icon/discount.svg" alt="" />
+            <img src="./icon/index-discount.svg" alt="" />
             <div class="item">
               <h2 class="item-title">Khuyến mãi</h2>
               <!-- Hiển thị số lượng khuyến mãi từ database -->

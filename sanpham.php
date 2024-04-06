@@ -39,7 +39,7 @@
     <section id="page-title">
       <div class="index_main sanpham">
         <div class="home-title">
-          <img src="./icon/diamond-2.svg" alt="" />
+          <img src="./icon/sanpham-diamond.svg" alt="" />
           <h1 class="title">Danh sách sản phẩm</h1>
         </div>
         <div class="edit-btn-add">
@@ -109,8 +109,8 @@
               echo "<td>" . $row["tong_so_luong"] . "</td>";
               echo "<td>";
               echo "<div class='action'>";
-              echo "<a href='suasanpham.php?id=".$row["ma_san_pham"]."'><img src='./icon/edit.svg' alt='Sửa' /></a>";    
-              echo "<a href='?opt=del_sp&id=".$row["ma_san_pham"]."' onclick='return confirm(\"Bạn có chắc chắn muốn xoá sản phẩm ".$row["ten_san_pham"]."?\");'><img src='./icon/delete.svg' alt='Xóa' /></a>";  
+              echo "<a href='suasanpham.php?id=".$row["ma_san_pham"]."'><img src='./icon/sanpham-edit.svg' alt='Sửa' /></a>";    
+              echo "<a href='?opt=del_sp&id=".$row["ma_san_pham"]."' onclick='return confirm(\"Bạn có chắc chắn muốn xoá sản phẩm ".$row["ten_san_pham"]."?\");'><img src='./icon/sanpham-delete.svg' alt='Xóa' /></a>";  
               echo "</div>";
               echo "</td>";
               echo "</tr>";

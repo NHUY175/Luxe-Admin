@@ -31,7 +31,7 @@
     <section id="page-title">
       <div class="index_main">
         <div class="home-title">
-          <img src="./icon/settings.svg" alt="" />
+          <img src="./icon/sanpham-settings.svg" alt="" />
           <h1 class="title">Cập nhật thông tin sản phẩm</h1>
         </div>
       </div>
