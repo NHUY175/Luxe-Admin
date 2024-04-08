@@ -29,7 +29,7 @@
     <section id="page-title">
       <div class="container">
         <div class="home-title">
-          <img src="./icon/diamond-2.svg" alt="" />
+          <img src="./icon/nhanvien-diamond-2.svg" alt="" />
           <h1 class="title">Danh sách nhân viên</h1>
           <button class="add-new-buttonds">Thêm mới</button>
         </div>
@@ -45,7 +45,7 @@
           <option value="2">Tên Nhân viên</option>
         </select>
         <input type="text" id="data" class="filter-input" />
-        <input type="image" src="./icon/search.svg" alt="" class="filter-btn" />
+        <input type="image" src="./icon/nhanvien-search.svg" alt="" class="filter-btn" />
       </div>
       <!-- Table -->
       <table class="nhanvien-list">
@@ -73,8 +73,8 @@
             <td>15/01/2023</td>
             <td>
               <div class="action">
-                <img src="./icon/edit.svg" alt="" />
-                <img src="./icon/delete.svg" alt="" />
+                <img src="./icon/nhanvien-edit.svg" alt="" />
+                <img src="./icon/nhanvien-delete.svg" alt="" />
               </div>
             </td>
           </tr>

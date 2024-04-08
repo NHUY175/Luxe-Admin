@@ -43,7 +43,7 @@
     <section id="page-title">
       <div class="container">
         <div class="home-title">
-          <img src="./icon/settings.svg" alt="" />
+          <img src="./icon/suanhanvien-settings.svg" alt="" />
           <h1 class="title">Cập nhật danh sách nhân viên</h1>
           <a class="add-new-button2" href="nhanvien.html" id="Return" target="_blank">Quay lại</a> 
         </div>
