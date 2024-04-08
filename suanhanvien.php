@@ -13,7 +13,7 @@
     />
     <!-- Styles -->
     <link rel="stylesheet" href="css/reset.css" />
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/nhanvien.css" />
     <!-- Scripts -->
     <script src="./js/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
