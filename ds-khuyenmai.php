@@ -96,7 +96,7 @@
               echo "<td>" . $row["luot_su_dung"] . "</td>";
               echo "<td>";
               echo "<div class='action'>";
-              echo "<a href='ql-khuyenmai.php?id=".$row["ma_coupon"]."'><img src='./icon/khuyenmai-edit.svg' alt='Sửa' /></a>";   //Dẫn qua page sửa coupon với tham số mã coupon trên URL 
+              echo "<a href='sua-khuyenmai.php?id=".$row["ma_coupon"]."'><img src='./icon/khuyenmai-edit.svg' alt='Sửa' /></a>";   //Dẫn qua page sửa coupon với tham số mã coupon trên URL 
               echo "<a href='?opt=del_cp&id=".$row["ma_coupon"]."' onclick='return confirm(\"Bạn có chắc chắn muốn xoá coupon này ".$row["ma_coupon"]."?\");'><img src='./icon/khuyenmai-delete.svg' alt='Xóa' /></a>";  
               echo "</div>";
               echo "</td>";
@@ -145,7 +145,7 @@
                   echo "<td>" . $row["luot_su_dung"] . "</td>";
                   echo "<td>";
                   echo "<div class='action'>";
-                  echo "<a href='ql-khuyenmai.php?id=".$row["ma_coupon"]."'><img src='./icon/khuyenmai-edit.svg' alt='Sửa' /></a>";   //Dẫn qua page sửa coupon với tham số mã coupon trên URL 
+                  echo "<a href='sua-khuyenmai.php?id=".$row["ma_coupon"]."'><img src='./icon/khuyenmai-edit.svg' alt='Sửa' /></a>";   //Dẫn qua page sửa coupon với tham số mã coupon trên URL 
                   echo "<a href='?opt=del_cp&id=".$row["ma_coupon"]."' onclick='return confirm(\"Bạn có chắc chắn muốn xoá coupon này ".$row["ma_coupon"]."?\");'><img src='./icon/khuyenmai-delete.svg' alt='Xóa' /></a>";  
                   echo "</div>";
                   echo "</td>";

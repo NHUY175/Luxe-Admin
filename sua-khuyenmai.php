@@ -122,7 +122,7 @@
               
               </div>        
       <div class="edit-action">
-        <button type="submit"  class="edit-btn" > Thêm </button>
+        <button type="submit"  class="edit-btn" > Cập nhật </button>
         <button type="submit" class="edit-btn" onclick="window.location.href = 'ds-khuyenmai.php?opt=view_sp'"> Huỷ </button>
       </div>
     </section>
