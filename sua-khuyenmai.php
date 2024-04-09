@@ -53,6 +53,8 @@
     $_idcp = $_GET["id"];
     $sql = "select * from tbl_khuyenmai where ma_coupon=".$_idcp;
     $result = chayTruyVanTraVeDL($link,$sql);
+    //Lấy dữ liệu từ trong DB ra
+    $row = mysqli_fetch_assoc($result);
     }
     ?>
     <form action="ds-khuyenmai.php?opt=update_cp" class="edit-coupon" method="post" enctype="multipart/form-data">

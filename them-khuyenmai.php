@@ -67,7 +67,7 @@
                 <select id="trangthai" name="trangthai" class="form-input">
                 <option value="1">Đang áp dụng</option>
                 <option value="2">Chưa áp dụng</option>
-                <option value="3">Ngừng áp dụng</option>
+                <option value="3">Quá hạn</option>
                 </select>
             </div>
             <div class="form-group">
