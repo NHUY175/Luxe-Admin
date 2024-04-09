@@ -52,7 +52,7 @@
         <option value="0">--Chọn điều kiện lọc--</option>
           <option value="1">Mã coupon</option>
           <option value="2">Giá trị giảm</option>
-          <option value="2">Trạng thái</option>
+          <option value="3">Trạng thái</option>
         </select>
         <input type="text" name="giatri" id="data" class="filter-input" />
         <input type="image" src="./icon/khuyenmai-search.svg" class="filter-btn">
@@ -80,10 +80,9 @@
             //Xác định trang hiện tại
             $trang_hien_tai = isset($_GET["trang"]) ? $_GET["trang"] : 1;
             //Kết nối và lấy dữ liệu từ CSDL
-            $khuyenmai_start = ($trang_hien_tai - 1)* 10;     
+            $khuyenmai_start = ($trang_hien_tai - 1)* 5;     
             $result = chayTruyVanTraVeDL($link,"SELECT ma_coupon, thoi_gian_bat_dau, thoi_gian_ket_thuc, trang_thai, gia_tri_giam, gia_tri_don_toi_thieu, luot_su_dung
             FROM tbl_khuyenmai 
-            GROUP BY ma_coupon
             LIMIT $khuyenmai_start, 5");//Giới hạn mỗi trang show 5 sản phẩm
             while ($row = mysqli_fetch_assoc($result)) {
               echo "<tr>";
@@ -108,102 +107,141 @@
           function search_cp() {
             $link = null;
             taoKetNoi($link);
-            //Kiểm tra có phương thức POST gửi lên hay không - bắt đầU khi click nút search > submit pt POST
-            if(isset($_POST)){
-              $_dieukien = $_POST["dieukien"];
-              $_giatri = $_POST["giatri"];
-              if ($_dieukien == 0) {
-                //Tạo câu lệnh SQL search mã coupon
-                $sql = "SELECT ma_coupon, thoi_gian_bat_dau, thoi_gian_ket_thuc, trang_thai, gia_tri_giam, gia_tri_don_toi_thieu, luot_su_dung
-                        FROM tbl_khuyenmai
-                        WHERE ma_coupon = $_giatri";                                             
-              }
-              else if ($_dieukien == 1) {
-                //Tạo câu lệnh SQL search giá trị giảm
-                $sql = "SELECT ma_coupon, thoi_gian_bat_dau, thoi_gian_ket_thuc, trang_thai, gia_tri_giam, gia_tri_don_toi_thieu, luot_su_dung
-                        FROM tbl_khuyenmai
-                        WHERE gia_tri_giam <= $_giatri";
-                //Tạo câu lệnh SQL search trạng thái
-                $sql = "SELECT ma_coupon, thoi_gian_bat_dau, thoi_gian_ket_thuc, trang_thai, gia_tri_giam, gia_tri_don_toi_thieu, luot_su_dung
-                       FROM tbl_khuyenmai
-                       WHERE trang_thai = $_giatri";            
-              }
-              $rs = chayTruyVanTraVeDL($link, $sql);
-              while ($row = mysqli_fetch_assoc($rs)) {
-                if ($row["ma_coupon"] == null) {
-                  echo "<script>alert('Coupon không tồn tại!');</script>";
-                  echo "<script>window.location.href = 'ds-khuyenmai.php?opt=view_cp';</script>";
+            
+            // Kiểm tra có phương thức POST gửi lên hay không
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $_dieukien = $_POST["dieukien"];
+                $_giatri = $_POST["giatri"];
+        
+                if ($_dieukien == 1) {
+                    //Tạo câu lệnh SQL search mã coupon
+                    $sql = "SELECT ma_coupon, thoi_gian_bat_dau, thoi_gian_ket_thuc, trang_thai, gia_tri_giam, gia_tri_don_toi_thieu, luot_su_dung
+                            FROM tbl_khuyenmai
+                            WHERE ma_coupon = '$_giatri'";
+                } else if ($_dieukien == 2) {
+                    //Tạo câu lệnh SQL search giá trị giảm
+                    $sql = "SELECT ma_coupon, thoi_gian_bat_dau, thoi_gian_ket_thuc, trang_thai, gia_tri_giam, gia_tri_don_toi_thieu, luot_su_dung
+                            FROM tbl_khuyenmai
+                            WHERE gia_tri_giam = '$_giatri'";
+                } else if ($_dieukien == 3) {
+                    //Tạo câu lệnh SQL search trạng thái
+                    $sql = "SELECT ma_coupon, thoi_gian_bat_dau, thoi_gian_ket_thuc, trang_thai, gia_tri_giam, gia_tri_don_toi_thieu, luot_su_dung
+                           FROM tbl_khuyenmai
+                           WHERE trang_thai = '$_giatri'";
                 }
-                else {
-                  echo "<tr>";
-                  echo "<td>" . $row["ma_coupon"] . "</td>";
-                  echo "<td>" . $row["thoi_gian_bat_dau"] . "</td>";
-                  echo "<td>" . $row["thoi_gian_ket_thuc"] . "</td>";
-                  echo "<td>" . $row["trang_thai"] . "</td>";
-                  echo "<td>" . $row["gia_tri_giam"] . "</td>";
-                  echo "<td>" . $row["gia_tri_don_toi_thieu"] . "</td>";
-                  echo "<td>" . $row["luot_su_dung"] . "</td>";
-                  echo "<td>";
-                  echo "<div class='action'>";
-                  echo "<a href='sua-khuyenmai.php?id=".$row["ma_coupon"]."'><img src='./icon/khuyenmai-edit.svg' alt='Sửa' /></a>";   //Dẫn qua page sửa coupon với tham số mã coupon trên URL 
-                  echo "<a href='?opt=del_cp&id=".$row["ma_coupon"]."' onclick='return confirm(\"Bạn có chắc chắn muốn xoá coupon này ".$row["ma_coupon"]."?\");'><img src='./icon/khuyenmai-delete.svg' alt='Xóa' /></a>";  
-                  echo "</div>";
-                  echo "</td>";
-                  echo "</tr>";
-                }              
-              }
-            }         
-            giaiPhongBoNho($link,$rs);
-          }
+        
+                $rs = chayTruyVanTraVeDL($link, $sql);
+        
+                // Kiểm tra số lượng dòng trả về
+                if(mysqli_num_rows($rs) > 0) {
+                    while ($row = mysqli_fetch_assoc($rs)) {
+                        echo "<tr>";
+                        echo "<td>" . $row["ma_coupon"] . "</td>";
+                        echo "<td>" . $row["thoi_gian_bat_dau"] . "</td>";
+                        echo "<td>" . $row["thoi_gian_ket_thuc"] . "</td>";
+                        echo "<td>" . $row["trang_thai"] . "</td>";
+                        echo "<td>" . $row["gia_tri_giam"] . "</td>";
+                        echo "<td>" . $row["gia_tri_don_toi_thieu"] . "</td>";
+                        echo "<td>" . $row["luot_su_dung"] . "</td>";
+                        echo "<td>";
+                        echo "<div class='action'>";
+                        echo "<a href='sua-khuyenmai.php?id=".$row["ma_coupon"]."'><img src='./icon/khuyenmai-edit.svg' alt='Sửa' /></a>";
+                        echo "<a href='?opt=del_cp&id=".$row["ma_coupon"]."' onclick='return confirm(\"Bạn có chắc chắn muốn xoá coupon này ".$row["ma_coupon"]."?\");'><img src='./icon/khuyenmai-delete.svg' alt='Xóa' /></a>";
+                        echo "</div>";
+                        echo "</td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='8'>Không tìm thấy coupon</td></tr>";
+                }
+        
+                giaiPhongBoNho($link,$rs);
+            }
+        }
+        
           //Delete
           function delete_cp() {
             $link = null;
             taoKetNoi($link);
-            if(isset($_GET["id"])){
+            
+            if(isset($_GET["id"])) {
                 $_ma_coupon = $_GET["id"];
-                $sql = "DELETE from tbl_khuyenmai where ma_coupon=".$_ma_coupon;
-                $result = chayTruyVanKhongTraVeDL($link,$sql);
-                if ($result) {
-                  echo "<script>alert('Xoá sản phẩm thành công!');</script>";
-                  echo "<script>window.location.href = 'ds-khuyenmai.php?opt=view_cp';</script>";
+        
+                // Sử dụng prepared statement để tránh lỗ hổng SQL Injection
+                $sql = "DELETE FROM tbl_khuyenmai WHERE ma_coupon=?";
+                $stmt = mysqli_prepare($link, $sql);
+                
+                // Kiểm tra xem prepared statement có được chuẩn bị thành công hay không
+                if ($stmt) {
+                    // Gán giá trị cho tham số và thực thi câu lệnh
+                    mysqli_stmt_bind_param($stmt, "s", $_ma_coupon);
+                    $result = mysqli_stmt_execute($stmt);
+                    
+                    // Kiểm tra kết quả và thông báo tương ứng
+                    if ($result) {
+                        echo "<script>alert('Xoá sản phẩm thành công!');</script>";
+                    } else {
+                        echo "<script>alert('Xoá sản phẩm thất bại!');</script>";
+                    }
+                    
+                    // Giải phóng prepared statement
+                    mysqli_stmt_close($stmt);
                 } else {
-                  echo "<script>alert('Xoá sản phẩm thất bại!');</script>";
-                  echo "<script>window.location.href = 'ds-khuyenmai.php?opt=view_cp';</script>";
+                    // Nếu không thể chuẩn bị prepared statement, thông báo lỗi
+                    echo "<script>alert('Xoá sản phẩm thất bại do lỗi truy vấn!');</script>";
                 }
+        
+                // Chuyển hướng sau khi xử lý xong
+                echo "<script>window.location.href = 'ds-khuyenmai.php?opt=view_cp';</script>";
             }
-            giaiPhongBoNho($link,$result);
-          }
+            
+            giaiPhongBoNho($link);
+        }        
           // Add
           function add_sp() {
             $link = null;
             taoKetNoi($link);
-            //Kiểm tra có phương thức POST gửi lên hay không
-            if(isset($_POST)){
-              $_ma_coupon = $_POST["macoupon"];
-              $_thoi_gian_bat_dau = $_POST["thoigianbatdau"];
-              $_thoi_gian_ket_thuc = $_POST["thoigianketthuc"];
-              $_trang_thai = $_POST["trangthai"];
-              $_gia_tri_giam = $_POST["giatrigiam"];
-              $_gia_tri_don_toi_thieu = $_POST["giatridontoithieu"];
-              $_luot_su_dung = $_POST["luotsudung"];
-              //Tạo câu lệnh SQL thêm vào bảng khuyến mãi
-              $sql = "INSERT INTO tbl_khuyenmai (ma_coupon, thoi_gian_bat_dau, thoi_gian_ket_thuc, trang_thai, gia_tri_giam, gia_tri_don_toi_thieu, luot_su_dung) values ('$_ma_coupon','$_thoi_gian_bat_dau','$_thoi_gian_ket_thuc', '$_trang_thai','$_gia_tri_giam' , '$_gia_tri_don_toi_thieu', '$_luot_su_dung')";
-              //Kiểm tra biến tên có dữ liệu hay không
-              if($_ten_san_pham != ""){
-                  // Thêm sản phẩm thành công
-                  $rs = chayTruyVanKhongTraVeDL($link, $sql);
-                  //Kiểm tra insert
-                  if($rs2){
-                    echo "<script>alert('Thêm thành công');</script>";
-                    echo "<script>window.location.href = 'ds-khuyenmai.php?opt=view_cp';</script>";
-                  }else{
-                    echo "<script>alert('Thêm thất bại');</script>";
-                    echo "<script>window.location.href = 'ds-khuyenmai.php?opt=view_cp';</script>";
-                  }
+            
+            // Kiểm tra có phương thức POST gửi lên hay không
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $_ma_coupon = $_POST["macoupon"];
+                $_thoi_gian_bat_dau = $_POST["thoigianbatdau"];
+                $_thoi_gian_ket_thuc = $_POST["thoigianketthuc"];
+                $_trang_thai = $_POST["trangthai"];
+                $_gia_tri_giam = $_POST["giatrigiam"];
+                $_gia_tri_don_toi_thieu = $_POST["giatridontoithieu"];
+                $_luot_su_dung = $_POST["luotsudung"];
+                
+                // Sử dụng prepared statement để tránh SQL Injection
+                $sql = "INSERT INTO tbl_khuyenmai (ma_coupon, thoi_gian_bat_dau, thoi_gian_ket_thuc, trang_thai, gia_tri_giam, gia_tri_don_toi_thieu, luot_su_dung) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                $stmt = mysqli_prepare($link, $sql);
+                
+                // Kiểm tra xem prepared statement có được chuẩn bị thành công hay không
+                if ($stmt) {
+                    // Gán giá trị cho các tham số và thực thi câu lệnh
+                    mysqli_stmt_bind_param($stmt, "ssssiii", $_ma_coupon, $_thoi_gian_bat_dau, $_thoi_gian_ket_thuc, $_trang_thai, $_gia_tri_giam, $_gia_tri_don_toi_thieu, $_luot_su_dung);
+                    $result = mysqli_stmt_execute($stmt);
+                    
+                    // Kiểm tra kết quả và thông báo tương ứng
+                    if ($result) {
+                        echo "<script>alert('Thêm thành công');</script>";
+                    } else {
+                        echo "<script>alert('Thêm thất bại');</script>";
+                    }
+                    
+                    // Giải phóng prepared statement
+                    mysqli_stmt_close($stmt);
+                } else {
+                    // Nếu không thể chuẩn bị prepared statement, thông báo lỗi
+                    echo "<script>alert('Thêm thất bại do lỗi truy vấn!');</script>";
                 }
-              }
-            giaiPhongBoNho($link,$rs);
-          }
+                
+                // Chuyển hướng sau khi xử lý xong
+                echo "<script>window.location.href = 'ds-khuyenmai.php?opt=view_cp';</script>";
+            }
+            
+            giaiPhongBoNho($link);
+        }        
           // Update
           function update_cp() {
             $link = null;
@@ -238,13 +276,13 @@
           if (isset($_GET["opt"])) { 
             $_opt = $_GET["opt"];
             switch ($_opt) {
-                case "search_sp": search_cp();
+                case "search_cp": search_cp();
                   break;
-                case "add_sp": add_cp();
+                case "add_cp": add_cp();
                   break;
-                case "update_sp": update_cp();
+                case "update_cp": update_cp();
                   break;
-                case "del_sp": delete_cp();
+                case "del_cp": delete_cp();
                   break;
                 default: view_cp();
                 }
