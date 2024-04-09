@@ -100,7 +100,7 @@
         </div>        
       </form>
       <div class="edit-action">
-        <button type="submit"  class="edit-btn" > Cập nhật </button>
+        <button type="submit"  class="edit-btn" > Thêm </button>
         <button type="submit" class="edit-btn" > Huỷ </button>
       </div>
     </section>
