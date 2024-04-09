@@ -11,13 +11,13 @@
           <!-- Navigation -->
           <nav class="navbar-index">
             <ul>
-              <li><a href="index.php">Trang chủ</a></li>
-              <li><a href="sanpham.php">Sản phẩm</a></li>
-              <li><a href="#!">Khuyến mãi</a></li>
-              <li><a href="#!">Đơn hàng</a></li>
-              <li><a href="#!">Khách hàng</a></li>
-              <li><a href="#!">Nhân viên</a></li>
-              <li><a href="#!">Thống kê</a></li>
+              <li><a href="index.php">TRANG CHỦ</a></li>
+              <li><a href="sanpham.php">SẢN PHẨM</a></li>
+              <li><a href="#!">KHUYẾN MÃI</a></li>
+              <li><a href="#!">ĐƠN HÀNG</a></li>
+              <li><a href="#!">KHÁCH HÀNG</a></li>
+              <li><a href="#!">NHÂN VIÊN</a></li>
+              <li><a href="#!">THỐNG KÊ</a></li>
             </ul>
           </nav>
 
