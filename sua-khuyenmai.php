@@ -19,7 +19,6 @@
   </head>
   <body>
     <!-- Header -->
-    <header>
     <?php
       require_once "db_module.php";  
       include "header.php";   
@@ -45,40 +44,20 @@
     <section id="main-content-2">
     <!-- Kết nối vào CSDL -->
     <?php
-    //Tạo kết nối vào CSDL
+    // Tạo kết nối vào CSDL
     require_once "db_module.php";
     $link = null;
     taoKetNoi($link);
+
     if(isset($_GET["id"])){
-      $_idcp = $_GET["id"];
-      $sql = "SELECT * FROM tbl_khuyenmai WHERE ma_coupon=?";
-      
-      // Sử dụng prepared statement để tránh lỗ hổng bảo mật SQL Injection
-      $stmt = mysqli_prepare($link, $sql);
-      
-      // Bind tham số vào câu lệnh SQL
-      mysqli_stmt_bind_param($stmt, "i", $_idcp);
-      
-      // Thực thi câu lệnh SQL
-      mysqli_stmt_execute($stmt);
-      
-      // Lấy kết quả
-      $result = mysqli_stmt_get_result($stmt);
-      
-      // Kiểm tra xem có dữ liệu trả về hay không
-      if($result && mysqli_num_rows($result) > 0) {
-          // Lấy dữ liệu từ trong DB ra
-          $row = mysqli_fetch_assoc($result);
-      } else {
-          // Xử lý khi không có dữ liệu trả về
-          // Ví dụ: thông báo lỗi, redirect, vv.
-      }
-      
-      // Giải phóng biến prepared statement
-      mysqli_stmt_close($stmt);
-    }  
+    $_idcp = $_GET["id"];
+    $sql = "select * from tbl_khuyenmai where ma_coupon=".$_idcp;
+    $result = chayTruyVanTraVeDL($link,$sql);
+    //Lấy dữ liệu từ trong DB ra
+    $row = mysqli_fetch_assoc($result);
+    }
     ?>
-    <form action="ds-khuyenmai.php?opt=add_cp" class="edit-coupon" method="post" enctype="multipart/form-data">
+    <form action="ds-khuyenmai.php?opt=update_cp" class="edit-coupon" method="post" enctype="multipart/form-data">
         <!-- Row 1 -->
         <div class="form-row1">
             <div class="form-group">
@@ -102,22 +81,23 @@
             <div class="form-group">
                 <label for="trangthai" class="form-label">Trạng thái</label>
                 <select id="trangthai" name="trangthai" class="form-input">
-                  <?php 
-                    switch($row['trang_thai']) {
-                    case 1:
-                      echo '<option value="1" selected>Đang áp dụng</option>';
-                      break;
-                    case 2:
-                      echo '<option value="2" selected>Chưa áp dụng</option>';
-                      break;
-                    case 3:
-                      echo '<option value="3" selected>Ngừng áp dụng</option>';
-                      break;
-                    default:
-                    // Xử lý mặc định nếu giá trị không phù hợp
-                    break;
-                    }
-                  ?>
+                <?php 
+                      if($row['trang_thai']=="Đang áp dụng"){
+                        echo '<option value="Đang áp dụng" selected>Đang áp dụng</option>';
+                        echo '<option value="Chưa áp dụng">Chưa áp dụng</option>';
+                        echo '<option value="Quá hạn">Quá hạn</option>';
+                      }                       
+                      else if ($row['trang_thai']=="Chưa áp dụng") {
+                        echo '<option value="Đang áp dụng" >Đang áp dụng</option>';
+                        echo '<option value="Chưa áp dụng"selected >Chưa áp dụng</option>';
+                        echo '<option value="Ngừng Hoạt động">Đang Hoạt động</option>';
+                      }
+                      else{
+                        echo '<option value="Đang áp dụng" >Đang áp dụng</option>';
+                        echo '<option value="Chưa áp dụng" >Chưa áp dụng</option>';
+                        echo '<option value="Quá hạn"selected>Quá hạn</option>';
+                      }
+                    ?>
                 </select>
             </div>
             <div class="form-group">
@@ -155,14 +135,6 @@
             <button type="button" class="edit-btn" onclick="window.location.href = 'ds-khuyenmai.php?opt=view_cp'"> Huỷ </button>
         </div>
     </form>
-    <?php
-    // Kiểm tra xem form đã được submit chưa và có dữ liệu được thêm vào CSDL thành công hay không
-    if (isset($_POST['submit_btn'])) {
-        // Kiểm tra điều kiện cập nhật thành công
-        // Hiển thị thông báo cập nhật thành công
-        echo "<script>alert('Cập nhật thành công');</script>";
-    }
-    ?>
     </section>
   </body>
 </html>
