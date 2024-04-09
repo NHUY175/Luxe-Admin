@@ -198,7 +198,7 @@
             giaiPhongBoNho($link);
         }        
           // Add
-          function add_sp() {
+          function add_cp() {
             $link = null;
             taoKetNoi($link);
             
