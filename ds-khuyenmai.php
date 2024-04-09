@@ -40,7 +40,7 @@
         <div class="home-title">
           <img src="./icon/khuyenmai-diamond-2.svg" alt="" />
           <h1 class="title">Danh sách coupon</h1>
-          <button class="add-new-button" href="them-khuyenmai.php" >Thêm mới</button>
+          <button class="add-new-button" onclick="window.location.href = 'them-khuyenmai.php?opt=add_cp'" >Thêm mới</button>
         </div>
       </div>
     </section>
@@ -213,35 +213,23 @@
                 $_luot_su_dung = $_POST["luotsudung"];
                 
                 // Sử dụng prepared statement để tránh SQL Injection
-                $sql = "INSERT INTO tbl_khuyenmai (ma_coupon, thoi_gian_bat_dau, thoi_gian_ket_thuc, trang_thai, gia_tri_giam, gia_tri_don_toi_thieu, luot_su_dung) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                $stmt = mysqli_prepare($link, $sql);
-                
-                // Kiểm tra xem prepared statement có được chuẩn bị thành công hay không
-                if ($stmt) {
-                    // Gán giá trị cho các tham số và thực thi câu lệnh
-                    mysqli_stmt_bind_param($stmt, "ssssiii", $_ma_coupon, $_thoi_gian_bat_dau, $_thoi_gian_ket_thuc, $_trang_thai, $_gia_tri_giam, $_gia_tri_don_toi_thieu, $_luot_su_dung);
-                    $result = mysqli_stmt_execute($stmt);
-                    
-                    // Kiểm tra kết quả và thông báo tương ứng
-                    if ($result) {
-                        echo "<script>alert('Thêm thành công');</script>";
-                    } else {
-                        echo "<script>alert('Thêm thất bại');</script>";
-                    }
-                    
-                    // Giải phóng prepared statement
-                    mysqli_stmt_close($stmt);
-                } else {
-                    // Nếu không thể chuẩn bị prepared statement, thông báo lỗi
-                    echo "<script>alert('Thêm thất bại do lỗi truy vấn!');</script>";
+                $sql = "INSERT INTO tbl_khuyenmai (ma_coupon, thoi_gian_bat_dau, thoi_gian_ket_thuc, trang_thai, gia_tri_giam, gia_tri_don_toi_thieu, luot_su_dung) VALUES ('$_ma_coupon', '$_thoi_gian_bat_dau', '$_thoi_gian_ket_thuc', '$_trang_thai', '$_gia_tri_giam', '$_gia_tri_don_toi_thieu', '$_luot_su_dung')";
+                //Kiểm tra biến tên có dữ liệu hay không
+                if ($_ma_coupon != "") {
+                  // Thêm sản phẩm thành công
+                  $rs = chayTruyVanKhongTraVeDL($link, $sql);
                 }
-                
-                // Chuyển hướng sau khi xử lý xong
+                //Kiểm tra insert
+                if ($rs) {
+                echo "<script>alert('Thêm thành công');</script>";
                 echo "<script>window.location.href = 'ds-khuyenmai.php?opt=view_cp';</script>";
-            }
-            
-            giaiPhongBoNho($link);
-        }        
+                } else {
+                echo "<script>alert('Thêm thất bại');</script>";
+                echo "<script>window.location.href = 'ds-khuyenmai.php?opt=view_cp';</script>";
+                }
+              }
+              giaiPhongBoNho($link);
+          }        
           // Update
           function update_cp() {
             $link = null;
@@ -258,7 +246,7 @@
               // Xử lý cơ sở dữ liệu 
               //Cập nhật ở bảng khuyến mãi
               $sql_cp = "UPDATE tbl_khuyenmai SET ma_coupon='$_ma_coupon', thoi_gian_bat_dau='$_thoi_gian_bat_dau', thoi_gian_ket_thuc='$_thoi_gian_ket_thuc, trang_thai='$_trang_thai', gia_tri_giam='$_gia_tri_giam', gia_tri_don_toi_thieu='$_gia_tri_don_toi_thieu', luot_su_dung='$_luot_su_dung'";
-              $rs = chayTruyVanKhongTraVeDL($link, $sql_cp);
+              $rs = chayTruyVanTraVeDL($link, $sql_cp);
               
               //Kiểm tra update
               if($rs){
