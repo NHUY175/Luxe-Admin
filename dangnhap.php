@@ -14,6 +14,7 @@
     <!-- Kết nối vào CSDL -->
     <?php
         require_once "db_module.php";
+        session_start();
 
         if ($_SERVER["REQUEST_METHOD"]=="POST") {
             $email = $_POST['email'];
@@ -32,9 +33,12 @@
             if ($num_rows == 1) {
                 $row=mysqli_fetch_array($result);
 
-                if($row["role_admin"]=="0") {
+                if($row["role_admin"]=="0") 
+                {
                     echo '<script>alert("Bạn không có quyền truy cập trang này");</script>';
-                } elseif($row["role_admin"]=="1") {
+                } elseif($row["role_admin"]=="1") 
+                {
+                    $_SESSION['email']=$email;
                     header("location:index.php");
                     exit(); // Kết thúc kịch bản sau khi chuyển hướng
                 }
