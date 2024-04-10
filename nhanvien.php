@@ -15,8 +15,6 @@
   <link rel="stylesheet" href="css/reset.css" />
   <!-- File định dạng các page sản phẩm -->
   <link rel="stylesheet" href="css/nhanvien.css" />
-    <!-- Scripts -->
-    <script src="./js/scripts.js"></script>
   </head>
   <body>
     <!-- Header -->
@@ -42,9 +40,7 @@
         <div class="home-title">
           <img src="./icon/nhanvien-diamond-2.svg" alt="" />
           <h1 class="title">Danh sách nhân viên</h1>
-          <div class="edit-btn-addnv">
-        <a href="themnhanvien.php">Thêm nhân viên</a>
-      </div>
+          <div class="edit-btn-addnv" onclick="window.location.href = 'themnhanvien.php?opt=add_nv'" >Thêm mới</button>
         </div>
       </div>
     </section>
@@ -57,7 +53,7 @@
         <option value="1">Mã Sản phẩm</option>
         <option value="2">Tên Sản phẩm</option>
       </select>
-      <input type="text" id="data" class="filter-input" />
+      <input type="text" id="giatri" class="filter-input" />
       <input type="image" src="./icon/nhanvien-search.svg" alt="" class="filter-btn">
     </form>
       
@@ -76,8 +72,6 @@
           </tr>
         </thead>
         <tbody>
-
-        <?php ?>
         <?php
         //View
         function view_nv()
@@ -88,27 +82,25 @@
           $trang_hien_tai = isset($_GET["trang"]) ? $_GET["trang"] : 1;
           //Kết nối và lấy dữ liệu từ CSDL
           $nhanvien_start = ($trang_hien_tai - 1) * 10;
-          $result = chayTruyVanTraVeDL($link, "SELECT s.ma_nhan_vien, s.ho_ten, s.gioi_tinh, s.email, s.so_dien_thoai, s.dia_chi_cu_tru, s.ngay_tham_gia FROM tbl_nhanvien AS s LIMIT $nhanvien_start, 10");
-          $table_html = ''; // Khởi tạo biến để lưu trữ HTML của bảng nhân viên
+          $result = chayTruyVanTraVeDL($link, "SELECT ma_nhan_vien, ho_ten, gioi_tinh, email, so_dien_thoai, dia_chi_cu_tru, ngay_tham_gia FROM tbl_nhanvien LIMIT $nhanvien_start, 10");
           while ($row = mysqli_fetch_assoc($result)) {
-            $table_html .= "<tr>";
-            $table_html .= "<td>" . $row["ma_nhan_vien"] . "</td>";
-            $table_html .= "<td>" . $row["ho_ten"] . "</td>";
-            $table_html .= "<td>" . $row["gioi_tinh"] . "</td>";
-            $table_html .= "<td>" . $row["email"] . "</td>";
-            $table_html .= "<td>" . $row["so_dien_thoai"] . "</td>";
-            $table_html .= "<td>" . $row["dia_chi_cu_tru"] . "</td>";
-            $table_html .= "<td>" . $row["ngay_tham_gia"] . "</td>";
-            $table_html .= "<td>
-                        <div class='action'>
-                          <a href='./suanhanvien.php?id='><img src='./icon/nhanvien-edit.svg' alt='Sửa' /></a>
-                          <a href='?opt=del_nv&id=" . $row["ma_nhan_vien"] . "'><img src='./icon/nhanvien-delete.svg' alt='Xóa' /></a>
-                        </div>
-                      </td>";
-        $table_html .= "</tr>";
-    }
+            echo "<tr>";
+              echo "<td>" . $row["ma_nhan_vien"] . "</td>";
+              echo "<td>" . $row["ho_ten"] . "</td>";
+              echo "<td>" . $row["gioi_tinh"] . "</td>";
+              echo "<td>" . $row["email"] . "</td>";
+              echo "<td>" . $row["so_dien_thoai"] . "</td>";
+              echo "<td>" . $row["dia_chi_cu_tru"] . "</td>";
+              echo "<td>" . $row["ngay_tham_gia"] . "</td>";
+              echo "<td>";
+              echo "<div class='action'>";
+              echo "<a href='suanhanvien.php?id=".$row["ma_nhan_vien"]."'><img src='./icon/nhanvien-edit.svg' alt='Sửa' /></a>";   
+              echo "<a href='?opt=del_nv&id=".$row["ma_nhan_vien"]."' onclick='return confirm(\"Bạn có chắc chắn muốn xoá nhân viên ".$row["ho_ten"]."?\");'><img src='./icon/nhanvien-delete.svg' alt='Xóa' /></a>";  
+              echo "</div>";
+              echo "</td>";
+              echo "</tr>";
+              }
           giaiPhongBoNho($link, $result);
-          return $table_html; // Trả về chuỗi HTML của bảng nhân viên
         }
           //Search
           function search_nv()
@@ -121,10 +113,10 @@
               $_giatri = $_POST["giatri"];
               if ($_filterNV == 0) {
                 //Tạo câu lệnh SQL search mã nhân viên
-                $sql = "SELECT s.ma_nhan_vien, s.ho_ten, s.gioi_tinh, s.email, s.so_dien_thoai, s.dia_chi_cu_tru, s.ngay_tham_gia FROM tbl_nhanvien AS s WHERE s.ma_nhan_vien = $_giatri";
+                $sql = "SELECT ma_nhan_vien, ho_ten, gioi_tinh, email, so_dien_thoai, dia_chi_cu_tru, ngay_tham_gia FROM tbl_nhanvien WHERE ma_nhan_vien = $_giatri";
               } else if ($_filterNV == 1) {
                 //Tạo câu lệnh SQL search tên nhân viên
-                $sql = "SELECT s.ma_nhan_vien, s.ho_ten, s.gioi_tinh, s.email, s.so_dien_thoai, s.dia_chi_cu_tru, s.ngay_tham_gia FROM tbl_nhanvien AS s WHERE s.ho_ten LIKE '%" . $_giatri . "%'";
+                $sql = "SELECT ma_nhan_vien, ho_ten, gioi_tinh, email, so_dien_thoai, dia_chi_cu_tru, ngay_tham_gia FROM tbl_nhanvien WHERE ho_ten LIKE '%" . $_giatri . "%'";
               }
               $rs = chayTruyVanTraVeDL($link, $sql);
               while ($row = mysqli_fetch_assoc($rs)) {
@@ -148,14 +140,15 @@
                     </td>";
                   echo "</tr>";
                 }
-              }
-              giaiPhongBoNho($link, $rs);
-            } else {
+              } else {
               // Xử lý khi không tìm thấy dữ liệu để tìm kiếm
-              echo "<script>alert('Dữ liệu tìm kiếm không hợp lệ!');</script>";
+              echo "<script>alert('Không tìm thấy dữ liệu!');</script>";
               echo "<script>window.location.href = 'nhanvien.php?opt=view_nv';</script>";
             }
+          giaiPhongBoNho($link, $rs);
           }
+        }
+      
         //Delete
         function delete_nv()
           {
