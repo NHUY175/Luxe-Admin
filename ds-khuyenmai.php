@@ -195,7 +195,7 @@
                 echo "<script>window.location.href = 'ds-khuyenmai.php?opt=view_cp';</script>";
             }
             
-            giaiPhongBoNho($link);
+            giaiPhongBoNho($link, $result);
         }        
           // Add
           function add_cp() {
@@ -228,7 +228,7 @@
                 echo "<script>window.location.href = 'ds-khuyenmai.php?opt=view_cp';</script>";
                 }
               }
-              giaiPhongBoNho($link);
+              giaiPhongBoNho($link, $rs);
           }        
           // Update
           function update_cp() {
@@ -245,7 +245,8 @@
                 $_luot_su_dung = $_POST["luotsudung"];
                 // Xử lý cơ sở dữ liệu 
                 // Cập nhật ở bảng khuyến mãi
-                $sql_cp = "UPDATE tbl_khuyenmai SET ma_coupon='$_ma_coupon', thoi_gian_bat_dau='$_thoi_gian_bat_dau', thoi_gian_ket_thuc='$_thoi_gian_ket_thuc', trang_thai='$_trang_thai', gia_tri_giam='$_gia_tri_giam', gia_tri_don_toi_thieu='$_gia_tri_don_toi_thieu', luot_su_dung='$_luot_su_dung' WHERE ma_coupon='$_ma_coupon'"; // Thêm điều kiện WHERE để chỉ cập nhật hàng cụ thể
+                $sql_cp = "UPDATE tbl_khuyenmai SET thoi_gian_bat_dau='$_thoi_gian_bat_dau', thoi_gian_ket_thuc='$_thoi_gian_ket_thuc', trang_thai='$_trang_thai', gia_tri_giam='$_gia_tri_giam', gia_tri_don_toi_thieu='$_gia_tri_don_toi_thieu', luot_su_dung='$_luot_su_dung' WHERE ma_coupon='$_ma_coupon'"; // Thêm điều kiện WHERE để chỉ cập nhật hàng cụ thể
+                echo ($sql_cp);
                 $result = chayTruyVanKhongTraVeDL($link, $sql_cp);
                 
                 // Kiểm tra update

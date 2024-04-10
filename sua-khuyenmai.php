@@ -51,22 +51,9 @@
 
         if(isset($_GET["id"])){
             $_idcp = $_GET["id"];
-            $sql = "select * from tbl_khuyenmai where ma_coupon=" . $_idcp;
+            $sql = "select * from tbl_khuyenmai where ma_coupon= '$_idcp'";
             $result = chayTruyVanTraVeDL($link, $sql);
-            // Kiểm tra xem câu truy vấn có thành công hay không
-            if ($result) {
-                // Lặp qua các hàng kết quả và lưu vào mảng $row
-                while ($temp = mysqli_fetch_assoc($result)) {
-                    $row[] = $temp;
-                }
-
-                // Kiểm tra xem có dữ liệu hay không
-                if (empty($row)) {
-                    echo "Không tìm thấy dữ liệu.";
-                }
-            } else {
-                echo "Lỗi truy vấn CSDL: " . mysqli_error($link);
-            }
+            $row = mysqli_fetch_assoc($result);
         }
     ?>
     <form action="ds-khuyenmai.php?opt=update_cp" class="edit-coupon" method="post" enctype="multipart/form-data">
