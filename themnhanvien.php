@@ -32,7 +32,14 @@
       <div class="index_main">
         <div class="home-title">
           <img src="./icon/nhanvien-settings.svg" alt="" />
-          <h1 class="title">Thêm nhân viên</h1>
+          <h1 class="title">Cập nhật danh sách nhân viên</h1>
+          <button type="button" onclick="resetForm()" class="add-new-button2">Làm mới</button>
+          <!--Chức năng làm mới form-->
+          <script>
+              function resetForm() {
+            document.querySelector('form').reset();
+              }
+          </script>
         </div>
       </div>
     </section>
@@ -68,18 +75,27 @@
         <div class="form-row">
             <div class="form-group">
                 <label for="Email" class="form-label">Email nhân viên</label>
-                <input type="email" id="Email" class="form-input" disabled/>
+                <input type="email" id="Email" name="Email" class="form-input"/>
             </div>
               <div class="form-group">
                 <label for="NgayTG" class="form-label">Ngày tham gia</label>
-                <input type="text" id="NgayTG" name="ntgnv" class="form-input" />
+                <input type="date" id="NgayTG" name="ntgnv" class="form-input" />
               </div>        
             </div>       
+        <!-- Chức năng chọn ngày giờ-->
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.js"></script>
+        <script>
+            flatpickr('#NgayTG', {
+                enableTime: true,
+                dateFormat: "Y-m-d",
+                locale: "vi"
+            });
+        </script>
         <div class="edit-action">
-          <input type="submit" value="Thêm" class="edit-btn" />
-          <input type="button" value="Huỷ" class="edit-btn" onclick="window.location.href = 'nhanvien.php?opt=view_nv'"/>
+            <button type="submit" class="edit-btn" name="submit_btn"> Thêm </button>
+            <button type="button" class="edit-btn" onclick="window.location.href = 'nhanvien.php?opt=view_nv'"> Huỷ </button>
         </div>
-      </form>
+    </form>
     </section>
   </body>
 </html>

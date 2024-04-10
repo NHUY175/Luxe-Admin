@@ -22,18 +22,7 @@
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
     <!-- Scripts -->
     <script src="./js/script.js"></script>
-    <script>
-      $(function() {
-        // Khởi tạo Datepicker cho input có id là "NgayTG"
-        $("#NgayTG").datepicker();
-      });
-      function generateEmail() {
-            var hoten = document.getElementById('Hoten').value;
-            var email = hoten.toLowerCase().replace(/\s+/g, '.') + '@luxe.com';
-            document.getElementById('Email').value = email;
-            document.getElementById('displayEmail').textContent = email; // Hiển thị địa chỉ email
-      }
-    </script>
+    
   </head>
   <body>
     <!-- Header -->
@@ -48,7 +37,13 @@
         <div class="home-title">
           <img src="./icon/suanhanvien-settings.svg" alt="" />
           <h1 class="title">Cập nhật thông tin nhân viên</h1>
-          <a class="add-new-button2" href="nhanvien.html" id="Return" target="_blank">Quay lại</a> 
+          <button type="button" onclick="resetForm()" class="add-new-button2">Làm mới</button>
+          <!--Chức năng làm mới form-->
+          <script>
+              function resetForm() {
+            document.querySelector('form').reset();
+              }
+          </script> 
         </div>
       </div>
     </section>
@@ -60,6 +55,7 @@
         require_once "db_module.php";
         $link = null;
         taoKetNoi($link);
+        $row = array(); // Khởi tạo mảng $row
         if(isset($_GET["id"])){
           $_idnv = $_GET["id"];
           $sql = "select * from tbl_nhanvien where ma_nhan_vien=".$_idnv;
@@ -106,24 +102,30 @@
             <div class="form-row">
             <div class="form-group">
                 <label for="Email" class="form-label">Email nhân viên</label>
-                <input type="email" id="Email" class="form-input" disabled/>
-                <p id="displayEmail"><?php echo $row["email"]; ?></p> 
+                <input type="text" id="Email" name="Email" class="form-input" value="<?php echo $row["email"]; ?>">
             </div>
               <div class="form-group">
                 <label for="NgayTG" class="form-label">Ngày tham gia</label>
                 <input type="text" id="NgayTG" name="ntgnv" class="form-input" value="<?php echo $row["ngay_tham_gia"]; ?>">
               </div>        
             </div>
-            <?php
-        }
-            giaiPhongBoNho($link,$result);
-      ?>  
-        </div>   
+            <!-- Chức năng chọn ngày giờ-->
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.js"></script>
+        <script>
+            flatpickr('#NgayTG', {
+                enableTime: true,
+                dateFormat: "Y-m-d",
+                locale: "vi"
+            });
+        </script>   
           <div class="edit-action">
-            <input type="submit" value="Cập nhật" class="edit-btn" />
-            <input type="button" value="Huỷ" class="edit-btn" onclick="window.location.href = 'nhanvien.php?opt=view_nv'"/>
+            <button type="submit" class="edit-btn" name="submit_btn"> Cập nhật </button>
+            <button type="button" class="edit-btn" onclick="window.location.href = 'nhanvien.php?opt=view_nv'"> Huỷ </button>
         </div>
-        </form>
+    </form>
+    <?php
+        giaiPhongBoNho($link,$result);
+    ?>           
     </section>
   </body>
 </html>
