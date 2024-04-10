@@ -90,8 +90,12 @@
           </div>
 
           <div class="revenue-statistics">
+
+            <!-- Chọn ngày bắt đầu và ngày kết thúc để hiển thị tổng doanh thu -->
             <div class="revenue">
               <div class="selectdate">
+
+                  <!-- Form chọn ngày bắt đầu -->
                   <form class="date-form1" id ="date-form1" method = "POST">
                     <label>Từ:</label>
                     <label for="start-day">Ngày</label>
@@ -113,6 +117,8 @@
                       <?php endfor; ?>
                   </select>
                   </form>
+
+                  <!-- Form chọn ngày kết thúc -->
                   <form class="date-form2" id ="date-form2" method = "POST">
                     <label>Đến:</label>
                     <label for="end-day" class="endday">Ngày</label>
@@ -141,7 +147,7 @@
                     $endDay = null;
                     $endMonth = null;
                     $endYear = null;
-                    
+                    // Gửi dữ liệu từ form
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                       if (isset($_POST['start-day'])) {
                         $startDay = $_POST['start-day'];
@@ -166,6 +172,8 @@
                       if (isset($_POST['end-year'])) {
                         $endYear = $_POST['end-year'];
                       }
+
+                      // Truy vấn để tính tổng doanh thu
                       $link = null;
                       taoKetNoi($link);
                       $query = "SELECT SUM(tong_thanh_toan) AS total_amount 
@@ -177,6 +185,8 @@
                     }
                   ?>
               </div>
+
+              <!-- Xuất kết quả tổng doanh thu -->
               <div class="total-revenue">
                 <?php if (isset($rows['total_amount'])): ?>
                   <div class="total"><?php echo number_format($rows['total_amount'], 0, "", "."); ?> VNĐ</div>
@@ -192,9 +202,13 @@
                   }
               </script>
             </div>
+
+            <!-- Vẽ biểu đồ đường doanh thu theo tháng -->
             <p class="chart">Biểu đồ đường doanh thu theo tháng</p>
             <canvas id="myChart"></canvas>
             <?php 
+
+              // Truy vấn để lấy thời gian theo tháng-năm và tổng doanh thu theo tháng-năm
               $link = null;
               taoKetNoi($link);
               $query = "SELECT DATE_FORMAT(ngay_tao, '%m-%Y') AS thang_nam, SUM(tong_thanh_toan) AS total_amount 
@@ -216,6 +230,8 @@
                 $totalAmountData[] = number_format($totalAmount, 0, '', '');
               }
             ?>
+
+            <!-- Script để vẽ biểu đồ -->
             <script>
               var labelData = <?php echo json_encode($labelData); ?>;
               var totalAmountData = <?php echo json_encode($totalAmountData); ?>;

@@ -91,8 +91,12 @@
           </div>
 
           <div class="revenue-statistics">
+
+            <!-- Chọn ngày bắt đầu và ngày kết thúc để hiển thị tổng đơn hàng -->
           <div class="revenue">
               <div class="selectdate">
+
+                  <!-- Chọn ngày bắt đầu -->
                   <form class="date-form1" id ="date-form1" method = "POST">
                     <label>Từ:</label>
                     <label for="start-day">Ngày</label>
@@ -114,6 +118,8 @@
                       <?php endfor; ?>
                   </select>
                   </form>
+
+                  <!-- Chọn ngày kết thúc -->
                   <form class="date-form2" id ="date-form2" method = "POST">
                     <label>Đến:</label>
                     <label for="end-day" class="endday">Ngày</label>
@@ -143,6 +149,7 @@
                     $endMonth = null;
                     $endYear = null;
                     
+                    // Gửi dữ liệu từ form
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                       if (isset($_POST['start-day'])) {
                         $startDay = $_POST['start-day'];
@@ -170,6 +177,7 @@
                       $link = null;
                       taoKetNoi($link);
 
+                      // Truy vấn để lấy tổng đơn hàng
                       $query = "SELECT COUNT(ma_don_hang) AS total_orders
                                 FROM tbl_donhang 
                                 WHERE ngay_tao >= '$startYear-$startMonth-$startDay 00:00:00' 
@@ -179,6 +187,8 @@
                     }
                   ?>
               </div>
+
+              <!-- Hiển thị tổng đơn hàng -->
               <div class="total-revenue">
                 <?php if (isset($rows['total_orders'])): ?>
                   <div class="total"><?php echo number_format($rows['total_orders'], 0, "", "."); ?></div>
@@ -194,12 +204,15 @@
                   }
               </script>
             </div>
+
+            <!-- Biểu đồ đường đơn hàng theo tháng -->
             <p class="chart">Biểu đồ đường đơn hàng theo tháng</p>
             <canvas id="myChart"></canvas>
             <?php 
               $link = null;
               taoKetNoi($link);
 
+              // Truy vấn để lấy dữ liệu để vẽ biểu đồ
               $query = "SELECT DATE_FORMAT(ngay_tao, '%m-%Y') AS thang_nam, COUNT(ma_don_hang) AS total_orders 
                         FROM tbl_donhang 
                         WHERE ngay_tao >= '$startYear-$startMonth-$startDay 00:00:00' 
