@@ -179,7 +179,8 @@
                       $query = "SELECT SUM(tong_thanh_toan) AS total_amount 
                                 FROM tbl_donhang 
                                 WHERE ngay_tao >= '$startYear-$startMonth-$startDay 00:00:00' 
-                                AND ngay_tao <= '$endYear-$endMonth-$endDay 23:59:59';";
+                                AND ngay_tao <= '$endYear-$endMonth-$endDay 23:59:59'
+                                AND tinh_trang != 'Chưa giao'";
                       $result = chayTruyVanTraVeDL($link, $query);
                       $rows = mysqli_fetch_assoc($result);
                     }
