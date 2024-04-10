@@ -179,16 +179,16 @@
                     
                     // Kiểm tra kết quả và thông báo tương ứng
                     if ($result) {
-                        echo "<script>alert('Xoá sản phẩm thành công!');</script>";
+                        echo "<script>alert('Xoá coupon thành công!');</script>";
                     } else {
-                        echo "<script>alert('Xoá sản phẩm thất bại!');</script>";
+                        echo "<script>alert('Xoá coupon thất bại!');</script>";
                     }
                     
                     // Giải phóng prepared statement
                     mysqli_stmt_close($stmt);
                 } else {
                     // Nếu không thể chuẩn bị prepared statement, thông báo lỗi
-                    echo "<script>alert('Xoá sản phẩm thất bại do lỗi truy vấn!');</script>";
+                    echo "<script>alert('Xoá coupon thất bại do lỗi truy vấn!');</script>";
                 }
         
                 // Chuyển hướng sau khi xử lý xong
@@ -245,11 +245,11 @@
                 $_luot_su_dung = $_POST["luotsudung"];
                 // Xử lý cơ sở dữ liệu 
                 // Cập nhật ở bảng khuyến mãi
-                $sql_cp = "UPDATE tbl_khuyenmai SET thoi_gian_bat_dau='$_thoi_gian_bat_dau', thoi_gian_ket_thuc='$_thoi_gian_ket_thuc', trang_thai='$_trang_thai', gia_tri_giam='$_gia_tri_giam', gia_tri_don_toi_thieu='$_gia_tri_don_toi_thieu', luot_su_dung='$_luot_su_dung' WHERE ma_coupon='$_ma_coupon'"; // Thêm điều kiện WHERE để chỉ cập nhật hàng cụ thể
-                $rs = chayTruyVanKhongTraVeDL($link, $sql_cp);
+                $sql_cp = "UPDATE tbl_khuyenmai SET ma_coupon='$_ma_coupon', thoi_gian_bat_dau='$_thoi_gian_bat_dau', thoi_gian_ket_thuc='$_thoi_gian_ket_thuc', trang_thai='$_trang_thai', gia_tri_giam='$_gia_tri_giam', gia_tri_don_toi_thieu='$_gia_tri_don_toi_thieu', luot_su_dung='$_luot_su_dung' WHERE ma_coupon='$_ma_coupon'"; // Thêm điều kiện WHERE để chỉ cập nhật hàng cụ thể
+                $result = chayTruyVanKhongTraVeDL($link, $sql_cp);
                 
                 // Kiểm tra update
-                if($rs){
+                if($result){
                     echo "<script>alert('Cập nhật thành công');</script>";
                     echo "<script>window.location.href = 'ds-khuyenmai.php?opt=view_cp';</script>";
                 } else {
