@@ -246,7 +246,7 @@
               // Xử lý cơ sở dữ liệu 
               //Cập nhật ở bảng khuyến mãi
               $sql_cp = "UPDATE tbl_khuyenmai SET ma_coupon='$_ma_coupon', thoi_gian_bat_dau='$_thoi_gian_bat_dau', thoi_gian_ket_thuc='$_thoi_gian_ket_thuc, trang_thai='$_trang_thai', gia_tri_giam='$_gia_tri_giam', gia_tri_don_toi_thieu='$_gia_tri_don_toi_thieu', luot_su_dung='$_luot_su_dung'";
-              $rs = chayTruyVanTraVeDL($link, $sql_cp);
+              $rs = chayTruyVanKhongTraVeDL($link, $sql_cp);
               
               //Kiểm tra update
               if($rs){
