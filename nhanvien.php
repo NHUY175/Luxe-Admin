@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&dinvlay=swap"
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"
       rel="stylesheet"
     />
     <!-- File reset đảm bảo kích thước hiển thị website giữa các trình duyệt khác nhau -->
@@ -88,97 +88,123 @@
           $trang_hien_tai = isset($_GET["trang"]) ? $_GET["trang"] : 1;
           //Kết nối và lấy dữ liệu từ CSDL
           $nhanvien_start = ($trang_hien_tai - 1) * 10;
-          $result = chayTruyVanTraVeDL($link, "SELECT s.ma_nhan_vien, s.ho_ten, s.gioi_tinh, s.email, s.so_dien_thoai, s.dia_chi_cu_tru, s.ngay_tham_gia FROM tbl_nhanvien AS s,
-          LIMIT $nhanvien_start, 10");//Giới hạn mỗi trang show 10 sản phẩm
+          $result = chayTruyVanTraVeDL($link, "SELECT s.ma_nhan_vien, s.ho_ten, s.gioi_tinh, s.email, s.so_dien_thoai, s.dia_chi_cu_tru, s.ngay_tham_gia FROM tbl_nhanvien AS s LIMIT $nhanvien_start, 10");
+          $table_html = ''; // Khởi tạo biến để lưu trữ HTML của bảng nhân viên
           while ($row = mysqli_fetch_assoc($result)) {
-            echo "<tr>";
-            echo "<td>" . $row["ma_nhan_vien"] . "</td>";
-            echo "<td>" . $row["ho_ten_"] . "</td>";
-            echo "<td>" . $row["gioi_tinh"] . "</td>";
-            echo "<td>" . $row["email"] . "</td>";
-            echo "<td>" . $row["so_dien_thoai"] . "</td>";
-            echo "<td>" . $row["dia_chi_cu_tru"] . "</td>";
-            echo "<td>" . $row["ngay_tham_gia"] . "</td>";
-            echo "<td>";
-            echo "<div class='action'>";
-            echo "<a href='suanhanvien.php?id=" . $row["ma_nhan_vien"] . "'><img src='./icon/nhanvien-edit.svg' alt='Sửa' /></a>";   //Dẫn qua page thêm sửa sản phẩm với tham số mã sản phẩm trên URL 
-            echo "<a href='?opt=del_nv&id=" . $row["ma_nhan_vien"] . "' onclick='return confirm(\"Bạn có chắc chắn muốn xoá nhân vien " . $row["ho_ten"] . "?\");'><img src='./icon/nhanvien-delete.svg' alt='Xóa' /></a>";
-            echo "</div>";
-            echo "</td>";
-            echo "</tr>";
-          }
+            $table_html .= "<tr>";
+            $table_html .= "<td>" . $row["ma_nhan_vien"] . "</td>";
+            $table_html .= "<td>" . $row["ho_ten"] . "</td>";
+            $table_html .= "<td>" . $row["gioi_tinh"] . "</td>";
+            $table_html .= "<td>" . $row["email"] . "</td>";
+            $table_html .= "<td>" . $row["so_dien_thoai"] . "</td>";
+            $table_html .= "<td>" . $row["dia_chi_cu_tru"] . "</td>";
+            $table_html .= "<td>" . $row["ngay_tham_gia"] . "</td>";
+            $table_html .= "<td>
+                        <div class='action'>
+                          <a href='./suanhanvien.php?id='><img src='./icon/nhanvien-edit.svg' alt='Sửa' /></a>
+                          <a href='?opt=del_nv&id=" . $row["ma_nhan_vien"] . "'><img src='./icon/nhanvien-delete.svg' alt='Xóa' /></a>
+                        </div>
+                      </td>";
+        $table_html .= "</tr>";
+    }
           giaiPhongBoNho($link, $result);
+          return $table_html; // Trả về chuỗi HTML của bảng nhân viên
         }
           //Search
-        function search_nv()
-        {
-          $link = null;
-          taoKetNoi($link);
-          //Kiểm tra có phương thức POST gửi lên hay không - bắt đầu khi click nút search > submit pt POST
-          if (isset($_POST)) {
-            $_filterNV = $_POST["filterNV"];
-            $_giatri = $_POST["giatri"];
-            if ($_filterNV == 0) {
-              //Tạo câu lệnh SQL search mã nhân viên
-              $sql = "SELECT s.ma_nhan_vien, s.ho_ten, s.gioi_tinh, s.email, s.so_dien_thoai, s.dia_chi_cu_tru, s.ngay_tham_gia FROM tbl_nhanvien AS s
-                        AND s.ma_nhan_vien = $_giatri";
-            } else if ($_filterNV == 1) {
-              //Tạo câu lệnh SQL search tên nhân viên
-              $sql = "SELECT s.ma_nhan_vien, s.ho_ten, s.gioi_tinh, s.email, s.so_dien_thoai, s.dia_chi_cu_tru, s.ngay_tham_gia FROM tbl_nhanvien AS s
-               WHERE s.ho_ten LIKE '%" . $_giatri . "%'";
+          function search_nv()
+          {
+            $link = null;
+            taoKetNoi($link);
+            //Kiểm tra có phương thức POST gửi lên hay không - bắt đầu khi click nút search > submit pt POST
+            if (isset($_POST["filterNV"]) && isset($_POST["giatri"])) {
+              $_filterNV = $_POST["filterNV"];
+              $_giatri = $_POST["giatri"];
+              if ($_filterNV == 0) {
+                //Tạo câu lệnh SQL search mã nhân viên
+                $sql = "SELECT s.ma_nhan_vien, s.ho_ten, s.gioi_tinh, s.email, s.so_dien_thoai, s.dia_chi_cu_tru, s.ngay_tham_gia FROM tbl_nhanvien AS s WHERE s.ma_nhan_vien = $_giatri";
+              } else if ($_filterNV == 1) {
+                //Tạo câu lệnh SQL search tên nhân viên
+                $sql = "SELECT s.ma_nhan_vien, s.ho_ten, s.gioi_tinh, s.email, s.so_dien_thoai, s.dia_chi_cu_tru, s.ngay_tham_gia FROM tbl_nhanvien AS s WHERE s.ho_ten LIKE '%" . $_giatri . "%'";
+              }
+              $rs = chayTruyVanTraVeDL($link, $sql);
+              while ($row = mysqli_fetch_assoc($rs)) {
+                if ($row["ma_nhan_vien"] == null) {
+                  echo "<script>alert('Nhân viên không tồn tại!');</script>";
+                  echo "<script>window.location.href = 'nhanvien.php?opt=view_nv';</script>";
+                } else {
+                  echo "<tr>";
+                  echo "<td>" . $row["ma_nhan_vien"] . "</td>";
+                  echo "<td>" . $row["ho_ten"] . "</td>";
+                  echo "<td>" . $row["gioi_tinh"] . "</td>";
+                  echo "<td>" . $row["email"] . "</td>";
+                  echo "<td>" . $row["so_dien_thoai"] . "</td>";
+                  echo "<td>" . $row["dia_chi_cu_tru"] . "</td>";
+                  echo "<td>" . $row["ngay_tham_gia"] . "</td>";
+                  echo "<td>
+                      <div class='action'>
+                        <a href='./suanhanvien.php?id='><img src='./icon/nhanvien-edit.svg' alt='Sửa' /></a>
+                        <a href='?opt=del_nv&id=" . $row["ma_nhan_vien"] . "'><img src='./icon/nhanvien-delete.svg' alt='Xóa' /></a>
+                      </div>
+                    </td>";
+                  echo "</tr>";
+                }
+              }
+              giaiPhongBoNho($link, $rs);
+            } else {
+              // Xử lý khi không tìm thấy dữ liệu để tìm kiếm
+              echo "<script>alert('Dữ liệu tìm kiếm không hợp lệ!');</script>";
+              echo "<script>window.location.href = 'nhanvien.php?opt=view_nv';</script>";
             }
-            $rs = chayTruyVanTraVeDL($link, $sql);
-            while ($row = mysqli_fetch_assoc($rs)) {
-              if ($row["ma_nhan_vien"] == null) {
-                echo "<script>alert('Sản phẩm không tồn tại!');</script>";
+          }
+        //Delete
+        function delete_nv()
+          {
+            $link = null;
+            taoKetNoi($link);
+            if (isset($_GET["id"])) {
+              $_ma_nhan_vien = $_GET["id"];
+              // Xoá nhân viên từ bảng tbl_nhanvien
+              $sql = "DELETE FROM tbl_nhanvien WHERE ma_nhan_vien=" . $_ma_nhan_vien;
+              $result = chayTruyVanKhongTraVeDL($link, $sql);
+              if ($result) {
+                echo "<script>alert('Xoá nhân viên thành công!');</script>";
                 echo "<script>window.location.href = 'nhanvien.php?opt=view_nv';</script>";
               } else {
-                echo "<tr>";
-                echo "<td>" . $row["ma_nhan_vien"] . "</td>";
-                echo "<td>" . $row["ho_ten"] . "</td>";
-                echo "<td>" . $row["gioi_tinh"] . "</td>";
-                echo "<td>" . $row["email"] . "</td>";
-                echo "<td>" . $row["so_dien_thoai"] . "</td>";
-                echo "<td>" . $row["dia_chi_cu_tru"] . "</td>";
-                echo "<td>" . $row["ngay_tham_gia"] . "</td>";
-                echo "<td>
-                    <div class='action'>
-                      <a href='./suanhanvien.php?id='><img src='./icon/nhanvien-edit.svg' alt='Sửa' /></a>
-                      <a href='?opt=del_nv&id=" . $row["ma_nhan_vien"] . "'><img src='./icon/nhanvien-delete.svg' alt='Xóa' /></a>
-                    </div>
-                  </td>";
-                echo "</tr>";
+                echo "<script>alert('Xoá nhân viên thất bại!');</script>";
+                echo "<script>window.location.href = 'nhanvien.php?opt=view_nv';</script>";
               }
             }
-        
+            giaiPhongBoNho($link, $result);
           }
-          giaiPhongBoNho($link, $rs);
-        }
         // Add
         function add_nv()
-        {
-          $link = null;
-          taoKetNoi($link);
-          //Kiểm tra có phương thức POST gửi lên hay không
-          if (isset($_POST)) {
-            $_ho_ten = $_POST["hotennv"];
-            $_gioi_tinh = $_POST["gioitinhnv"];
-            $_email = $_POST["emailnv"];
-            $_so_dien_thoai = $_POST["sodienthoainv"];
-            $_dia_chi_cu_tru = $_POST["diachicutru"];
-            $_ngay_tham_gia = $_POST["ngaythamgia"];
-           
-            //Tạo câu lệnh SQL thêm vào bảng nhân viên
-            $sql = "INSERT INTO tbl_nhanvien (ho_ten, gioi_tinh, email, so_dien_thoai, dia_chi_cu_tru, ngay_tham_gia) values ('$_ho_ten','$_gioi_tinh','$_email', '$_so_dien_thoai','$_dia_chi_cu_tru' , '$_ngay_tham_gia')";
-            //Kiểm tra biến tên có dữ liệu hay không
-            if ($_ho_ten != "") {
-              // Thêm nhân viên thành công
-              $rs = chayTruyVanKhongTraVeDL($link, $sql);
-              
+          {
+            $link = null;
+            taoKetNoi($link);
+            //Kiểm tra có phương thức POST gửi lên hay không
+            if (isset($_POST["hotennv"]) && isset($_POST["gioitinhnv"]) && isset($_POST["emailnv"]) && isset($_POST["sodienthoainv"]) && isset($_POST["diachicutru"]) && isset($_POST["ngaythamgia"])) {
+              $_ho_ten = $_POST["hotennv"];
+              $_gioi_tinh = $_POST["gioitinhnv"];
+              $_email = $_POST["emailnv"];
+              $_so_dien_thoai = $_POST["sodienthoainv"];
+              $_dia_chi_cu_tru = $_POST["diachicutru"];
+              $_ngay_tham_gia = $_POST["ngaythamgia"];
+
+              //Tạo câu lệnh SQL thêm vào bảng nhân viên
+              $sql = "INSERT INTO tbl_nhanvien (ho_ten, gioi_tinh, email, so_dien_thoai, dia_chi_cu_tru, ngay_tham_gia) values ('$_ho_ten','$_gioi_tinh','$_email', '$_so_dien_thoai','$_dia_chi_cu_tru' , '$_ngay_tham_gia')";
+              //Kiểm tra biến tên có dữ liệu hay không
+              if ($_ho_ten != "") {
+                // Thêm nhân viên thành công
+                $rs = chayTruyVanKhongTraVeDL($link, $sql);
+                
+              }
+            } else {
+              // Xử lý khi không nhận được đủ dữ liệu từ biểu mẫu
+              echo "<script>alert('Dữ liệu nhập không hợp lệ!');</script>";
+              echo "<script>window.location.href = 'nhanvien.php?opt=view_nv';</script>";
             }
+            giaiPhongBoNho($link, $rs);
           }
-          giaiPhongBoNho($link, $rs);
-        }
         // Update
         function update_nv()
         {
@@ -192,11 +218,15 @@
             $_so_dien_thoai = $_POST["sodienthoainv"];
             $_dia_chi_cu_tru = $_POST["diachicutru"];
             $_ngay_tham_gia = $_POST["ngaythamgia"];
-           
+            $_ma_nhan_vien = $_POST["manv"];
             }
+            
             // Xử lý cơ sở dữ liệu 
             //Cập nhật trước ở bảng nhân viên
             $sql_nv = "UPDATE tbl_nhanvien SET ho_ten='$_ho_ten', gioi_tinh='$_gioi_tinh', email='$_email', so_dien_thoai='$_so_dien_thoai', dia_chi_cu_tru='$_dia_chi_cu_tru', ngay_tham_gia='$_ngay_tham_gia' where ma_nhan_vien='$_ma_nhan_vien'";
+            $rs = ''; // Khởi tạo giá trị mặc định cho biến $rs
+  
+            // Thực thi truy vấn và gán kết quả cho biến $rs
             $rs = chayTruyVanKhongTraVeDL($link, $sql_nv);
           giaiPhongBoNho($link, $rs);
         }

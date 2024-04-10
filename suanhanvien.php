@@ -18,10 +18,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <!-- Scripts -->
-    <script src="./js/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+    <!-- Scripts -->
+    <script src="./js/script.js"></script>
     <script>
       $(function() {
         // Khởi tạo Datepicker cho input có id là "NgayTG"
@@ -42,7 +42,6 @@
       require_once "db_module.php"; 
       include "header.php";   
     ?>
-    <?php
     <!-- Page Title -->
     <section id="page-title">
       <div class="container">
@@ -62,7 +61,7 @@
         $link = null;
         taoKetNoi($link);
         if(isset($_GET["id"])){
-          $_idsp = $_GET["id"];
+          $_idnv = $_GET["id"];
           $sql = "select * from tbl_nhanvien where ma_nhan_vien=".$_idnv;
           $result = chayTruyVanTraVeDL($link,$sql);
           //Lấy dữ liệu từ trong DB ra
@@ -79,9 +78,7 @@
               <div class="form-group">
                 <label for="sdtnv" class="form-label">Số điện thoại</label>
                 <input type="text" id="sdtnv" name="sdtnv" class="form-input" value="<?php echo $row["so_dien_thoai"]; ?>">
-                <?php
-                </input>
-                </div>
+              </div>
             </div>
             <!-- Row 2 -->
             <div class="form-row">
@@ -103,32 +100,29 @@
               <div class="form-group">
                 <label for="DCcutru" class="form-label">Địa chỉ cư trú</label>
                 <input type="text" id="dcctnv" name="dcctnv" class="form-input" value="<?php echo $row["dia_chi_cu_tru"]; ?>">
-                <?php
-                </input>
               </div>
             </div>
             <!-- Row 3 -->
             <div class="form-row">
-              //Còn chỗ này trở xuống
             <div class="form-group">
                 <label for="Email" class="form-label">Email nhân viên</label>
                 <input type="email" id="Email" class="form-input" disabled/>
-                <p id="displayEmail"></p> <!-- Thêm phần tử HTML để hiển thị địa chỉ email -->
-              </div>
+                <p id="displayEmail"><?php echo $row["email"]; ?></p> 
+            </div>
               <div class="form-group">
                 <label for="NgayTG" class="form-label">Ngày tham gia</label>
-                <input type="text" id="NgayTG" class="form-input" />          
-              </div>
+                <input type="text" id="NgayTG" name="ntgnv" class="form-input" value="<?php echo $row["ngay_tham_gia"]; ?>">
+              </div>        
             </div>
-            echo "</table>";
+            <?php
+        }
             giaiPhongBoNho($link,$result);
-          }
       ?>  
         </div>   
           <div class="edit-action">
             <input type="submit" value="Cập nhật" class="edit-btn" />
             <input type="button" value="Huỷ" class="edit-btn" onclick="window.location.href = 'nhanvien.php?opt=view_nv'"/>
-          </div>
+        </div>
         </form>
     </section>
   </body>
