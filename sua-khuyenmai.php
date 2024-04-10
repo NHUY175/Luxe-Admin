@@ -82,11 +82,11 @@
         <div class="form-row">
             <div class="form-group">
                 <label for="giatrigiam" class="form-label">Giá trị giảm</label>
-                <input type="number" id="giatrigiam" name="giatrigiam" class="form-input" value="<?php echo ($row[0]["gia_tri_giam"])?>"/>
+                <input type="number" id="giatrigiam" name="giatrigiam" class="form-input" value="<?php echo ($row[4]["gia_tri_giam"])?>"/>
             </div>
             <div class="form-group">
                 <label for="giatridontoithieu" class="form-label">Giá trị đơn hàng tối thiểu</label>
-                <input type="number" id="giatridontoithieu" name="giatridontoithieu" class="form-input" value="<?php echo ($row[0]["gia_tri_don_toi_thieu"])?>"/>
+                <input type="number" id="giatridontoithieu" name="giatridontoithieu" class="form-input" value="<?php echo ($row[5]["gia_tri_don_toi_thieu"])?>"/>
             </div>
         </div>
         <!-- Row 3 -->
@@ -95,7 +95,7 @@
                 <label for="trangthai" class="form-label">Trạng thái</label>
                 <select id="trangthai" name="trangthai" class="form-input">
                     <?php 
-                        $trang_thai = $row[0]['trang_thai'];
+                        $trang_thai = $row[3]['trang_thai'];
                         $options = array("Đang áp dụng", "Chưa áp dụng", "Quá hạn");
                         foreach ($options as $option) {
                             if ($option == $trang_thai) {
@@ -109,18 +109,18 @@
             </div>
             <div class="form-group">
                 <label for="luotsudung" class="form-label">Lượt sử dụng</label>
-                <input type="number" id="luotsudung" name="luotsudung" class="form-input" value="<?php echo ($row[0]["luot_su_dung"])?>"/>          
+                <input type="number" id="luotsudung" name="luotsudung" class="form-input" value="<?php echo ($row[6]["luot_su_dung"])?>"/>          
             </div>
         </div>
         <!-- Row 4 -->
         <div class="form-row">
             <div class="form-group">
                 <label for="thoigianbatdau" class="form-label">Thời gian bắt đầu</label>
-                <input type="date" id="thoigianbatdau" name="thoigianbatdau" class="form-input" value="<?php echo ($row[0]["thoi_gian_bat_dau"])?>"/>
+                <input type="date" id="thoigianbatdau" name="thoigianbatdau" class="form-input" value="<?php echo ($row[1]["thoi_gian_bat_dau"])?>"/>
             </div>
             <div class="form-group">
                 <label for="thoigianketthuc" class="form-label">Thời gian kết thúc</label>
-                <input type="date" id="thoigianketthuc" name="thoigianketthuc" class="form-input" value="<?php echo ($row[0]["thoi_gian_ket_thuc"])?>"/>
+                <input type="date" id="thoigianketthuc" name="thoigianketthuc" class="form-input" value="<?php echo ($row[2]["thoi_gian_ket_thuc"])?>"/>
             </div>
         </div>
         <!-- Chức năng chọn ngày giờ-->
