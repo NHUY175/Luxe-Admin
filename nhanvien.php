@@ -141,7 +141,8 @@
                   echo "</tr>";
                 }
               }
-          giaiPhongBoNho($link, $rs);
+            }
+              giaiPhongBoNho($link, $rs);
           }
       
         //Delete
@@ -200,22 +201,30 @@
           taoKetNoi($link);
           //Kiểm tra có phương thức POST gửi lên hay không
           if (isset($_POST)) {
+            $_ma_nhan_vien = $_POST["manv"];
             $_ho_ten = $_POST["hotennv"];
             $_gioi_tinh = $_POST["gioitinhnv"];
             $_email = $_POST["emailnv"];
             $_so_dien_thoai = $_POST["sodienthoainv"];
             $_dia_chi_cu_tru = $_POST["diachicutru"];
-            $_ngay_tham_gia = $_POST["ngaythamgia"];
-            $_ma_nhan_vien = $_POST["manv"];
+            $_ngay_tham_gia = $_POST["NgayTG"];
+       
             }
             
             // Xử lý cơ sở dữ liệu 
             //Cập nhật trước ở bảng nhân viên
             $sql_nv = "UPDATE tbl_nhanvien SET ho_ten='$_ho_ten', gioi_tinh='$_gioi_tinh', email='$_email', so_dien_thoai='$_so_dien_thoai', dia_chi_cu_tru='$_dia_chi_cu_tru', ngay_tham_gia='$_ngay_tham_gia' where ma_nhan_vien='$_ma_nhan_vien'";
-            $rs = ''; // Khởi tạo giá trị mặc định cho biến $rs
-  
             // Thực thi truy vấn và gán kết quả cho biến $rs
             $rs = chayTruyVanKhongTraVeDL($link, $sql_nv);
+            //Kiểm tra update
+            if($rs){
+              echo "<script>alert('Cập nhật thành công');</script>";
+              echo "<script>window.location.href = 'nhanvien.php?opt=view_nv';</script>";
+              }else{
+              echo "<script>alert('Cập nhật thất bại');</script>";
+              echo "<script>window.location.href = 'nhanvien.php?opt=view_nv';</script>";
+              }
+            
           giaiPhongBoNho($link, $rs);
         }
 
