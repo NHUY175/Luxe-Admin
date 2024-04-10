@@ -14,15 +14,14 @@
     <!-- Styles -->
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/nhanvien.css" />
-    <!-- Styles + JS cho phần variants -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+
     <!-- Scripts -->
     <script src="./js/script.js"></script>
-    
+    <!--Thư viên flatpickr để chọn ngày giờ-->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
   </head>
   <body>
     <!-- Header -->
@@ -62,25 +61,26 @@
           $result = chayTruyVanTraVeDL($link,$sql);
           //Lấy dữ liệu từ trong DB ra
           $row = mysqli_fetch_assoc($result);
+        
             ?>
             <form action= "nhanvien.php?opt=update_nv" class="edit-nhanvien" method="post" enctype="multipart/form-data">
             <!-- Row 1 -->
+            <input type="hidden" name="manv" value="<?php echo $row["ma_nhan_vien"]; ?>">
             <div class="form-row">
-              <input type="hidden" name="manv" value="<?php echo $row["ma_nhan_vien"]; ?>">
-                <div class="form-group">
+                    <div class="form-group">
                 <label for="hotennv" class="form-label">Họ tên nhân viên</label>
                 <input type="text" id="hotennv" name="hotennv" class="form-input" value="<?php echo $row["ho_ten"]; ?>">
               </div>
               <div class="form-group">
-                <label for="sdtnv" class="form-label">Số điện thoại</label>
-                <input type="text" id="sdtnv" name="sdtnv" class="form-input" value="<?php echo $row["so_dien_thoai"]; ?>">
+                <label for="sodienthoainv" class="form-label">Số điện thoại</label>
+                <input type="text" id="sodienthoainv" name="sodienthoainv" class="form-input" value="<?php echo $row["so_dien_thoai"]; ?>">
               </div>
             </div>
             <!-- Row 2 -->
             <div class="form-row">
                 <div class="form-group">
-                <label for="Gioitinh" class="form-label">Giới tính</label>
-                <select name="Gioitinh" id="Gioitinh" class="form-input">
+                <label for="gioitinhnv" class="form-label">Giới tính</label>
+                <select name="gioitinhnv" id="gioitinhnv" class="form-input">
                   <?php 
                       if($row['gioi_tinh']==1){
                         echo '<option value="1" selected>Nữ</option>';
@@ -94,19 +94,19 @@
                 </select>
               </div>
               <div class="form-group">
-                <label for="DCcutru" class="form-label">Địa chỉ cư trú</label>
-                <input type="text" id="dcctnv" name="dcctnv" class="form-input" value="<?php echo $row["dia_chi_cu_tru"]; ?>">
+                <label for="diachicutru" class="form-label">Địa chỉ cư trú</label>
+                <input type="text" id="diachicutru" name="diachicutru" class="form-input" value="<?php echo $row["dia_chi_cu_tru"]; ?>">
               </div>
             </div>
             <!-- Row 3 -->
             <div class="form-row">
             <div class="form-group">
-                <label for="Email" class="form-label">Email nhân viên</label>
-                <input type="text" id="Email" name="Email" class="form-input" value="<?php echo $row["email"]; ?>">
+                <label for="emailnv" class="form-label">Email nhân viên</label>
+                <input type="text" id="emailnv" name="emailnv" class="form-input" value="<?php echo $row["email"]; ?>">
             </div>
               <div class="form-group">
                 <label for="NgayTG" class="form-label">Ngày tham gia</label>
-                <input type="text" id="NgayTG" name="ntgnv" class="form-input" value="<?php echo $row["ngay_tham_gia"]; ?>">
+                <input type="date" id="NgayTG" name="NgayTG" class="form-input" value="<?php echo $row["ngay_tham_gia"]; ?>">
               </div>        
             </div>
             <!-- Chức năng chọn ngày giờ-->
@@ -124,8 +124,8 @@
         </div>
     </form>
     <?php
-        giaiPhongBoNho($link,$result);
-    ?>           
+    }
+    ?>       
     </section>
   </body>
 </html>
