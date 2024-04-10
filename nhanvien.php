@@ -140,14 +140,9 @@
                     </td>";
                   echo "</tr>";
                 }
-              } else {
-              // Xử lý khi không tìm thấy dữ liệu để tìm kiếm
-              echo "<script>alert('Không tìm thấy dữ liệu!');</script>";
-              echo "<script>window.location.href = 'nhanvien.php?opt=view_nv';</script>";
-            }
+              }
           giaiPhongBoNho($link, $rs);
           }
-        }
       
         //Delete
         function delete_nv()
@@ -278,5 +273,4 @@
     </div>
   </section>
 </body>
-
 </html>
