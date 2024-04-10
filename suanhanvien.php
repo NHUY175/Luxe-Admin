@@ -81,53 +81,55 @@
                 <input type="text" id="sdtnv" name="sdtnv" class="form-input" value="<?php echo $row["so_dien_thoai"]; ?>">
                 <?php
                 </input>
+                </div>
             </div>
             <!-- Row 2 -->
             <div class="form-row">
-              <div class="form-group">
-                <label for="Hoten" class="form-label">Họ tên nhân viên</label>
-                <input type="text" id="Hoten" class="form-input" oninput="generateEmail()"/>
+                <div class="form-group">
+                <label for="Gioitinh" class="form-label">Giới tính</label>
+                <select name="Gioitinh" id="Gioitinh" class="form-input">
+                  <?php 
+                      if($row['gioi_tinh']==1){
+                        echo '<option value="1" selected>Nữ</option>';
+                        echo '<option value="0">Nam</option>';
+                      }                       
+                      else {
+                        echo '<option value="1">Nữ</option>';
+                        echo '<option value="0" selected>Nam</option>';
+                      }
+                    ?>
+                </select>
               </div>
               <div class="form-group">
                 <label for="DCcutru" class="form-label">Địa chỉ cư trú</label>
-                <input type="text" id="DCcutru" class="form-input" />
+                <input type="text" id="dcctnv" name="dcctnv" class="form-input" value="<?php echo $row["dia_chi_cu_tru"]; ?>">
+                <?php
+                </input>
               </div>
             </div>
             <!-- Row 3 -->
             <div class="form-row">
-              <div class="form-group">
-                <label for="Gioitinh" class="form-label">Giới tính</label>
-                <select name="Gioitinh" id="Gioitinh" class="form-input">
-                  <option value="1">Nam</option>
-                  <option value="2">Nữ</option>
-                </select>
+              //Còn chỗ này trở xuống
+            <div class="form-group">
+                <label for="Email" class="form-label">Email nhân viên</label>
+                <input type="email" id="Email" class="form-input" disabled/>
+                <p id="displayEmail"></p> <!-- Thêm phần tử HTML để hiển thị địa chỉ email -->
               </div>
               <div class="form-group">
                 <label for="NgayTG" class="form-label">Ngày tham gia</label>
                 <input type="text" id="NgayTG" class="form-input" />          
               </div>
             </div>
-            <!-- Row 4 -->
-            <div class="form-row">
-              <div class="form-group">
-                <label for="TrangThaiNV" class="form-label">Trạng thái</label>
-                <select name="TrangThaiNV" id="TrangThaiNV" class="form-input">
-                  <option value="1">Đang hoạt động</option>
-                  <option value="2">Tạm nghỉ</option>
-                  <option value="3">Đã nghỉ</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="Email" class="form-label">Email nhân viên</label>
-                <input type="email" id="Email" class="form-input" disabled/>
-                <p id="displayEmail"></p> <!-- Thêm phần tử HTML để hiển thị địa chỉ email -->
-              </div>
-            </div>
-          </form>
+            echo "</table>";
+            giaiPhongBoNho($link,$result);
+          }
+      ?>  
+        </div>   
           <div class="edit-action">
             <input type="submit" value="Cập nhật" class="edit-btn" />
-            <input type="submit" value="Huỷ" class="edit-btn" />
+            <input type="button" value="Huỷ" class="edit-btn" onclick="window.location.href = 'nhanvien.php?opt=view_nv'"/>
           </div>
+        </form>
     </section>
   </body>
 </html>
