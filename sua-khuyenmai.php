@@ -23,7 +23,6 @@
       require_once "db_module.php";  
       include "header.php";   
     ?>
-    </header>
     <!-- Page Title -->
     <section id="page-title">
       <div class="container">
@@ -44,34 +43,36 @@
     <section id="main-content-2">
     <!-- Kết nối vào CSDL -->
     <?php
-    // Tạo kết nối vào CSDL
-    require_once "db_module.php";
-    $link = null;
-    taoKetNoi($link);
+        require_once "db_module.php";
+        $link = null;
+        taoKetNoi($link);
 
-    if(isset($_GET["id"])){
-    $_idcp = $_GET["id"];
-    $sql = "select * from tbl_khuyenmai where ma_coupon=".$_idcp;
-    $result = chayTruyVanTraVeDL($link,$sql);
-    }
+        $row = array(); // Khởi tạo mảng $row
+
+        if(isset($_GET["id"])){
+            $_idcp = $_GET["id"];
+            $sql = "select * from tbl_khuyenmai where ma_coupon= '$_idcp'";
+            $result = chayTruyVanTraVeDL($link, $sql);
+            $row = mysqli_fetch_assoc($result);
+        }
     ?>
     <form action="ds-khuyenmai.php?opt=update_cp" class="edit-coupon" method="post" enctype="multipart/form-data">
         <!-- Row 1 -->
         <div class="form-row1">
             <div class="form-group">
                 <label for="macoupon" class="form-label">Mã coupon</label>
-                <input type="text" id="macoupon" name="macoupon" class="form-input" value="<?php echo $row["ma_coupon"]; ?>"/>
+                <input type="text" id="macoupon" name="macoupon" class="form-input" value="<?php echo ($row["ma_coupon"])?>"/>
             </div>
         </div>
         <!-- Row 2 -->
         <div class="form-row">
             <div class="form-group">
                 <label for="giatrigiam" class="form-label">Giá trị giảm</label>
-                <input type="number" id="giatrigiam" name="giatrigiam" class="form-input" value="<?php echo $row["gia_tri_giam"]; ?>"/>
+                <input type="number" id="giatrigiam" name="giatrigiam" class="form-input" value="<?php echo ($row["gia_tri_giam"])?>"/>
             </div>
             <div class="form-group">
                 <label for="giatridontoithieu" class="form-label">Giá trị đơn hàng tối thiểu</label>
-                <input type="number" id="giatridontoithieu" name="giatridontoithieu" class="form-input" value="<?php echo $row["gia_tri_don_toi_thieu"]; ?>"/>
+                <input type="number" id="giatridontoithieu" name="giatridontoithieu" class="form-input" value="<?php echo ($row["gia_tri_don_toi_thieu"])?>"/>
             </div>
         </div>
         <!-- Row 3 -->
@@ -79,39 +80,33 @@
             <div class="form-group">
                 <label for="trangthai" class="form-label">Trạng thái</label>
                 <select id="trangthai" name="trangthai" class="form-input">
-                <?php 
-                      if($row['trang_thai']=="Đang áp dụng"){
-                        echo '<option value="Đang áp dụng" selected>Đang áp dụng</option>';
-                        echo '<option value="Chưa áp dụng">Chưa áp dụng</option>';
-                        echo '<option value="Quá hạn">Quá hạn</option>';
-                      }                       
-                      else if ($row['trang_thai']=="Chưa áp dụng") {
-                        echo '<option value="Đang áp dụng" >Đang áp dụng</option>';
-                        echo '<option value="Chưa áp dụng"selected >Chưa áp dụng</option>';
-                        echo '<option value="Ngừng Hoạt động">Đang Hoạt động</option>';
-                      }
-                      else{
-                        echo '<option value="Đang áp dụng" >Đang áp dụng</option>';
-                        echo '<option value="Chưa áp dụng" >Chưa áp dụng</option>';
-                        echo '<option value="Quá hạn"selected>Quá hạn</option>';
-                      }
+                    <?php 
+                        $trang_thai = $row['trang_thai'];
+                        $options = array("Đang áp dụng", "Chưa áp dụng", "Quá hạn");
+                        foreach ($options as $option) {
+                            if ($option == $trang_thai) {
+                                echo "<option value=\"$option\" selected>$option</option>";
+                            } else {
+                                echo "<option value=\"$option\">$option</option>";
+                            }
+                        }
                     ?>
                 </select>
             </div>
             <div class="form-group">
                 <label for="luotsudung" class="form-label">Lượt sử dụng</label>
-                <input type="number" id="luotsudung" name="luotsudung" class="form-input" value="<?php echo $row["luot_su_dung"]; ?>"/>          
+                <input type="number" id="luotsudung" name="luotsudung" class="form-input" value="<?php echo ($row["luot_su_dung"])?>"/>          
             </div>
         </div>
         <!-- Row 4 -->
         <div class="form-row">
             <div class="form-group">
                 <label for="thoigianbatdau" class="form-label">Thời gian bắt đầu</label>
-                <input type="date" id="thoigianbatdau" name="thoigianbatdau" class="form-input" value="<?php echo $row["thoi_gian_bat_dau"]; ?>"/>
+                <input type="date" id="thoigianbatdau" name="thoigianbatdau" class="form-input" value="<?php echo ($row["thoi_gian_bat_dau"])?>"/>
             </div>
             <div class="form-group">
                 <label for="thoigianketthuc" class="form-label">Thời gian kết thúc</label>
-                <input type="date" id="thoigianketthuc" name="thoigianketthuc" class="form-input" value="<?php echo $row["thoi_gian_ket_thuc"]; ?>"/>
+                <input type="date" id="thoigianketthuc" name="thoigianketthuc" class="form-input" value="<?php echo ($row["thoi_gian_ket_thuc"])?>"/>
             </div>
         </div>
         <!-- Chức năng chọn ngày giờ-->
@@ -133,6 +128,9 @@
             <button type="button" class="edit-btn" onclick="window.location.href = 'ds-khuyenmai.php?opt=view_cp'"> Huỷ </button>
         </div>
     </form>
+    <?php
+        giaiPhongBoNho($link,$result);
+    ?>           
     </section>
   </body>
 </html>

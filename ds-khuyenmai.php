@@ -179,23 +179,23 @@
                     
                     // Kiểm tra kết quả và thông báo tương ứng
                     if ($result) {
-                        echo "<script>alert('Xoá sản phẩm thành công!');</script>";
+                        echo "<script>alert('Xoá coupon thành công!');</script>";
                     } else {
-                        echo "<script>alert('Xoá sản phẩm thất bại!');</script>";
+                        echo "<script>alert('Xoá coupon thất bại!');</script>";
                     }
                     
                     // Giải phóng prepared statement
                     mysqli_stmt_close($stmt);
                 } else {
                     // Nếu không thể chuẩn bị prepared statement, thông báo lỗi
-                    echo "<script>alert('Xoá sản phẩm thất bại do lỗi truy vấn!');</script>";
+                    echo "<script>alert('Xoá coupon thất bại do lỗi truy vấn!');</script>";
                 }
         
                 // Chuyển hướng sau khi xử lý xong
                 echo "<script>window.location.href = 'ds-khuyenmai.php?opt=view_cp';</script>";
             }
             
-            giaiPhongBoNho($link);
+            giaiPhongBoNho($link, $result);
         }        
           // Add
           function add_cp() {
@@ -228,38 +228,38 @@
                 echo "<script>window.location.href = 'ds-khuyenmai.php?opt=view_cp';</script>";
                 }
               }
-              giaiPhongBoNho($link);
+              giaiPhongBoNho($link, $rs);
           }        
           // Update
           function update_cp() {
             $link = null;
             taoKetNoi($link);
-            //Kiểm tra có phương thức POST gửi lên hay không
-            if(isset($_POST)){
-              $_ma_coupon = $_POST["macoupon"];
-              $_thoi_gian_bat_dau = $_POST["thoigianbatdau"];
-              $_thoi_gian_ket_thuc = $_POST["thoigianketthuc"];
-              $_trang_thai = $_POST["trangthai"];
-              $_gia_tri_giam = $_POST["giatrigiam"];
-              $_gia_tri_don_toi_thieu = $_POST["giatridontoithieu"];
-              $_luot_su_dung = $_POST["luotsudung"];
-              // Xử lý cơ sở dữ liệu 
-              //Cập nhật ở bảng khuyến mãi
-              $sql_cp = "UPDATE tbl_khuyenmai SET ma_coupon='$_ma_coupon', thoi_gian_bat_dau='$_thoi_gian_bat_dau', thoi_gian_ket_thuc='$_thoi_gian_ket_thuc, trang_thai='$_trang_thai', gia_tri_giam='$_gia_tri_giam', gia_tri_don_toi_thieu='$_gia_tri_don_toi_thieu', luot_su_dung='$_luot_su_dung'";
-              $rs = chayTruyVanTraVeDL($link, $sql_cp);
-              
-              //Kiểm tra update
-              if($rs){
-                echo "<script>alert('Cập nhật thành công');</script>";
-                echo "<script>window.location.href = 'ds-khuyenmai.php?opt=view_cp';</script>";
-              }else{
-                echo "<script>alert('Cập nhật thất bại');</script>";
-                echo "<script>window.location.href = 'ds-khuyenmai.php?opt=view_cp';</script>";
-              }
+            // Kiểm tra có phương thức POST gửi lên hay không
+            if(isset($_POST["submit_btn"])) { // Sửa để kiểm tra nút submit đã được nhấn
+                $_ma_coupon = $_POST["macoupon"];
+                $_thoi_gian_bat_dau = $_POST["thoigianbatdau"];
+                $_thoi_gian_ket_thuc = $_POST["thoigianketthuc"];
+                $_trang_thai = $_POST["trangthai"];
+                $_gia_tri_giam = $_POST["giatrigiam"];
+                $_gia_tri_don_toi_thieu = $_POST["giatridontoithieu"];
+                $_luot_su_dung = $_POST["luotsudung"];
+                // Xử lý cơ sở dữ liệu 
+                // Cập nhật ở bảng khuyến mãi
+                $sql_cp = "UPDATE tbl_khuyenmai SET thoi_gian_bat_dau='$_thoi_gian_bat_dau', thoi_gian_ket_thuc='$_thoi_gian_ket_thuc', trang_thai='$_trang_thai', gia_tri_giam='$_gia_tri_giam', gia_tri_don_toi_thieu='$_gia_tri_don_toi_thieu', luot_su_dung='$_luot_su_dung' WHERE ma_coupon='$_ma_coupon'"; // Thêm điều kiện WHERE để chỉ cập nhật hàng cụ thể
+                echo ($sql_cp);
+                $result = chayTruyVanKhongTraVeDL($link, $sql_cp);
+                
+                // Kiểm tra update
+                if($result){
+                    echo "<script>alert('Cập nhật thành công');</script>";
+                    echo "<script>window.location.href = 'ds-khuyenmai.php?opt=view_cp';</script>";
+                } else {
+                    echo "<script>alert('Cập nhật thất bại');</script>";
+                    echo "<script>window.location.href = 'ds-khuyenmai.php?opt=view_cp';</script>";
+                }
             }
             giaiPhongBoNho($link,$rs);
-          }
-
+        }        
           //Xử lý các option
           if (isset($_GET["opt"])) { 
             $_opt = $_GET["opt"];
