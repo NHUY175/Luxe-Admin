@@ -6,6 +6,7 @@
     padding-left: 60px;
     /* không để margin: auto vì nếu vậy sẽ mặc định margin top+bottom = 0 > sau này sẽ ghi đè*/
   }
+  
   /* Home Title */
   .home-title {
     display: flex;
