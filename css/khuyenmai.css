@@ -3,7 +3,7 @@
   .container {
     max-width: calc(100%);
     background-color: #ffffff;
-    /* không để margin: auto vì nếu vậy sẽ mặc định margin top+bottom = 0 > sau này sẽ ghi đè*/
+    padding-left: 60px;
   }
   /* Home Title */
   .home-title {
@@ -14,7 +14,7 @@
   }
   
   .home-title .title {
-    margin-left: 10px;
+    margin-left: 50px;
     color: #f86624;
     font-size: 3rem;
     font-weight: 700;

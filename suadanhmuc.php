@@ -13,8 +13,6 @@
   <link rel="stylesheet" href="css/reset.css" />
   <link rel="stylesheet" href="css/danhmuc.css" />
   <link rel="stylesheet" href="css/header.css" />
-  <!-- Scripts -->
-  <script src="./js/scripts.js"></script>
   <!-- FONT AWESOME - THƯ VIỆN ICON -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
 </head>

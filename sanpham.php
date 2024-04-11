@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="css/reset.css" />
   <!-- File định dạng các page sản phẩm -->
   <link rel="stylesheet" href="css/sanpham.css" />
+  <link rel="stylesheet" href="css/header.css" />
 </head>
 
 <body>

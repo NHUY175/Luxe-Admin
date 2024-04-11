@@ -21,6 +21,7 @@ if(!isset($_SESSION['email']))
     <!-- Styles -->
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/sanpham.css" />
+    <link rel="stylesheet" href="css/header.css" />
     <!-- Scripts -->
     <script src="./js/scripts.js"></script>
   </head>
