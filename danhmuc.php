@@ -322,9 +322,9 @@
 
                 // Kiểm tra loại file
                 $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-                $allowed_types = array('jpg', 'jpeg', 'png', 'gif');
+                $allowed_types = array('jpg', 'jpeg', 'png', 'gif', 'webp');
                 if (!in_array($imageFileType, $allowed_types)) {
-                  echo "<script>alert('Chỉ chấp nhận các loại file JPG, JPEG, PNG và GIF.');</script>";
+                  echo "<script>alert('Chỉ chấp nhận các loại file JPG, JPEG, PNG, GIF và WEBP.');</script>";
                   echo "<script>window.location.href = 'danhmuc.php?opt=view_dmsp';</script>";
                   exit();
                 }
