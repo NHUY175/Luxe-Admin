@@ -43,8 +43,8 @@
             <input type="text" id="tendh" name="tendh" class="form-input"/>
           </div>
           <div class="form-group">
-            <label for="ngaytao" class="form-label">Ngày tạo</label>
-            <input type="text" id="ngaytao" name="ngaytao" class="form-input"/>
+            <label for="ngaytao" class="form-label" >Ngày tạo</label>
+            <input type="text" id="ngaytao" name="ngaytao" class="form-input" placeholder="Năm-tháng-ngày"/>
           </div>
         </div>
         <!-- Row 2 -->
@@ -71,15 +71,14 @@
         </div>
         <!-- Row 4 -->
         <div class="form-row">
-          <div class="form-group">
-           
+          <div class="form-group"> 
             <?php
             //Kết nối và lấy dữ liệu từ CSDL
               $link = null;
               taoKetNoi($link);         
                 $coupon = chayTruyVanTraVeDL($link,"SELECT gia_tri_giam FROM tbl_khuyenmai Where ma_coupon = 'macoupon';");           
-               $row = mysqli_fetch_assoc($coupon);
-               if( $row!=null){  
+                $row = mysqli_fetch_assoc($coupon);
+               if( $row!=""){  
                     echo"<label for='giamgia' class='form-label'>Giảm giá</label>";
                     echo "<input type='text' id='giamgia' name='giamgia' readonly ='readonly'class='form-input' value=".$row["gia_tri_giam"].">";
                 }
@@ -119,7 +118,7 @@
             <label for="ghichu" class="form-label">Ghi chú</label>
             <input type="text" id="ghichu" name="ghichu" class="form-input" value=""/>
           </div>
-       
+      
         <div class="edit-action">
           <input type="submit" value="Thêm" class="edit-btn" />
           <input type="button" value="Huỷ" class="edit-btn" onclick="window.location.href = 'donhang.php?opt=view_dh'"/>
