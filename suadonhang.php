@@ -59,7 +59,7 @@
           </div>
           <div class="form-group">
             <label for="ngaytao" class="form-label">Ngày tạo</label>
-            <input type="text" id="ngaytao" name="ngaytao" class="form-input" placeholder="Năm-tháng-ngày" value="<?php echo ($row["ngay_tao"])?>"/>
+            <input type="text" id="ngaytao" name="ngaytao" class="form-input" placeholder="ngày-tháng-năm" value="<?php echo ($row["ngay_tao"])?>"/>
           </div>
         </div>
          <!-- Row 2 -->
