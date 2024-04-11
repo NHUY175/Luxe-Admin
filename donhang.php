@@ -184,7 +184,7 @@
            
           }
             //Tạo câu lệnh SQL thêm vào bảng donhang
-            $sql = "INSERT INTO tbl_donhang (ma_don_hang, ngay_tao, dia_chi_giao_hang, tong_tien,giam_gia, tong_thanh_toan, phuong_thuc_thanh_toan, tinh_trang,ghi_chu, ma_khach_hang, ma_coupon) values (' $_ten_dh',' $_ngay_tao',' $_dia_chi_giao', '$_tong_tien',' $_giam_gia' , ' $_tong_thanh_toan', '$_phuong_thuc_thanh_toan', '$_tinh_trang', '$_ghi_chu', '$_ma_khach_hang', '$_ma_coupon')";
+            $sql = "INSERT INTO tbl_donhang ( ngay_tao, dia_chi_giao_hang, tong_tien,giam_gia, tong_thanh_toan, phuong_thuc_thanh_toan, tinh_trang,ghi_chu, ma_khach_hang, ma_coupon) values (' $_ngay_tao',' $_dia_chi_giao', $_tong_tien, $_giam_gia , $_tong_thanh_toan, '$_phuong_thuc_thanh_toan', '$_tinh_trang', '$_ghi_chu', $_ma_khach_hang, '$_ma_coupon')";
             //Kiểm tra biến tên có dữ liệu hay không
             if ($_ten_dh != "") {
               // Thêm donhang thành công
@@ -221,7 +221,7 @@
             giaiPhongBoNho($link, $result);
          }
          // Update
-         function update_hd() {
+         function update_dh() {
             $link = null;
             taoKetNoi($link);
             // Kiểm tra có phương thức POST gửi lên hay không
@@ -239,7 +239,7 @@
                 $_ghi_chu = $_POST["ghichu"];
                 // Xử lý cơ sở dữ liệu 
                 // Cập nhật ở bảng khuyến mãi
-                $sql_cp = "UPDATE tbl_donhang SET  ngay_tao='$_ngay_tao', dia_chi_giao_hang=' $_dia_chi_giao', tong_tien='$_tong_tien',giam_gia='$_giam_gia', tong_thanh_toan=' $_tong_thanh_toan', phuong_thuc_thanh_toan='$_phuong_thuc_thanh_toan', tinh_trang='$_tinh_trang',ghi_chu='$_ghi_chu', ma_khach_hang='$_ma_khach_hang', ma_coupon='$_ma_coupon' WHERE ma_don_hang='$_ten_dh'"; // Thêm điều kiện WHERE để chỉ cập nhật hàng cụ thể
+                $sql_cp = "UPDATE tbl_donhang SET ngay_tao='$_ngay_tao', dia_chi_giao_hang=' $_dia_chi_giao', tong_tien=$_tong_tien,giam_gia=$_giam_gia, tong_thanh_toan= $_tong_thanh_toan, phuong_thuc_thanh_toan='$_phuong_thuc_thanh_toan', tinh_trang='$_tinh_trang',ghi_chu='$_ghi_chu', ma_khach_hang=$_ma_khach_hang, ma_coupon='$_ma_coupon' WHERE ma_don_hang=$_ten_dh"; // Thêm điều kiện WHERE để chỉ cập nhật hàng cụ thể
                 echo ($sql_cp);
                 $result = chayTruyVanKhongTraVeDL($link, $sql_cp);
                 
@@ -262,6 +262,10 @@
                 case "search_dh": search_dh();
                 break;
                 case "add_dh": add_dh();
+                break;
+                case "del_dh":delete_dh();
+                break;
+                case "upd_dh":update_dh();
                 break;
                 default: view_dh();
                 }

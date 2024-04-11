@@ -44,7 +44,7 @@
           </div>
           <div class="form-group">
             <label for="ngaytao" class="form-label" >Ngày tạo</label>
-            <input type="text" id="ngaytao" name="ngaytao" class="form-input" placeholder="Năm-tháng-ngày"/>
+            <input type="text" id="ngaytao" name="ngaytao" class="form-input" placeholder="ngày-tháng-năm"/>
           </div>
         </div>
         <!-- Row 2 -->
