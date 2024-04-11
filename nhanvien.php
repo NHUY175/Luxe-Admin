@@ -186,7 +186,8 @@
               if ($_ho_ten != "") {
                 // Thêm nhân viên thành công
                 $rs = chayTruyVanKhongTraVeDL($link, $sql);
-                
+                echo "<script>alert('Thêm nhân viên thành công!');</script>";
+                echo "<script>window.location.href = 'nhanvien.php?opt=view_nv';</script>";
               }
             } else {
               // Xử lý khi không nhận được đủ dữ liệu từ biểu mẫu

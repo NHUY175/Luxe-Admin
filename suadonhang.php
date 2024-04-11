@@ -45,7 +45,7 @@
 
         if(isset($_GET["id"])){
             $_iddh = $_GET["id"];
-            $sql = "select * from tbl_donhang where ma_don_hang='$_iddh'";
+            $sql = "select * from tbl_donhang where ma_don_hang=".$_iddh;
             $result = chayTruyVanTraVeDL($link, $sql);
             $row = mysqli_fetch_assoc($result);
         }
@@ -139,7 +139,7 @@
           </div>
       
         <div class="edit-action">
-          <input type="submit" value="Cập nhật" class="edit-btn" />
+          <input type="submit" value="Cập nhật" class="edit-btn" name="submit_btn" />
           <input type="button" value="Huỷ" class="edit-btn" onclick="window.location.href = 'donhang.php?opt=view_dh'"/>
         </div>
       </form>

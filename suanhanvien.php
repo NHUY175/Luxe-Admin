@@ -80,13 +80,13 @@
                 <label for="gioitinhnv" class="form-label">Giới tính</label>
                 <select name="gioitinhnv" id="gioitinhnv" class="form-input">
                   <?php 
-                      if($row['gioi_tinh']==1){
-                        echo '<option value="1" selected>Nữ</option>';
-                        echo '<option value="0">Nam</option>';
+                      if($row['gioi_tinh']=="Nữ"){
+                        echo '<option value="Nữ" selected>Nữ</option>';
+                        echo '<option value="Nam">Nam</option>';
                       }                       
                       else {
-                        echo '<option value="1">Nữ</option>';
-                        echo '<option value="0" selected>Nam</option>';
+                        echo '<option value="Nữ">Nữ</option>';
+                        echo '<option value="Nam" selected>Nam</option>';
                       }
                     ?>
                 </select>
