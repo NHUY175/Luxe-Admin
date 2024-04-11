@@ -14,46 +14,17 @@
     <!-- Styles -->
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/thongke.css" />
+    <link rel="stylesheet" href="css/header.css" />
     <!-- Scripts -->
     <script src="./js/thongke.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
+  <!-- Header -->
   <?php
       require_once "db_module.php";
+      include "header.php";
     ?>
-    <!-- Header -->
-    <header>
-      <div class="container">
-        <div class="top-bar">
-          <!-- Logo -->
-          <a href="./" class="logo-nav">
-            <img src="./icon/thongke-logo.svg" alt="Luxe" />
-            <h1 class="logo-title">Luxe</h1>
-          </a>
-          <!-- nav = navigation giống div nhưng có ngữ nghĩa -->
-          <!-- Navigation -->
-          <nav class="navbar">
-            <ul>
-              <li><a href="#!">Trang chủ</a></li>
-              <li><a href="#!">Sản phẩm</a></li>
-              <li><a href="#!">Khuyến mãi</a></li>
-              <li><a href="#!">Đơn hàng</a></li>
-              <li><a href="#!">Khách hàng</a></li>
-              <li><a href="#!">Nhân viên</a></li>
-              <li><a href="#!">Thống kê</a></li>
-            </ul>
-          </nav>
-
-          <!-- Action -->
-          <div class="top-act">
-            <button class="top-act-btn">
-              <img src="./icon/thongke-user.svg" alt="" />
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
     <!-- Page Title -->
     <section id="page-title">
       <div class="container">
