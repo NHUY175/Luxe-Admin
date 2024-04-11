@@ -3,6 +3,7 @@
   .container {
     max-width: calc(100%);
     background-color: #ffffff;
+    padding-left: 60px;
     /* không để margin: auto vì nếu vậy sẽ mặc định margin top+bottom = 0 > sau này sẽ ghi đè*/
   }
   /* Home Title */
