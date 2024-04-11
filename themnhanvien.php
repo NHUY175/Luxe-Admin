@@ -59,8 +59,8 @@
                 <div class="form-group">
                 <label for="Gioitinh" class="form-label">Giới tính</label>
                 <select name="Gioitinh" id="Gioitinh" class="form-input">
-                    <option value="1">Nữ</option>
-                    <option value="0">Nam</option>
+                    <option value="Nữ">Nữ</option>
+                    <option value="Nam">Nam</option>
                 </select>
               </div>
               <div class="form-group">
