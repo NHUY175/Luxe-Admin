@@ -71,16 +71,21 @@
         <!-- Row 4 -->
         <div class="form-row">
           <div class="form-group">
-            <label for="giamgia" class="form-label">Giảm giá</label>
            
             <?php
             //Kết nối và lấy dữ liệu từ CSDL
               $link = null;
               taoKetNoi($link);         
-                $coupon = chayTruyVanTraVeDL($link,"SELECT gia_tri_giam FROM tbl_khuyenmai Where ma_coupon = '$_ma_coupon'");           
-                while ($row = mysqli_fetch_assoc($coupon)){
-                echo "<input type=\"text\" id=\"giamgia\" name=\"giamgia\" class=\"form-input\" value=".$row["gia_tri_giam"]."readonly/>";
-              }
+                $coupon = chayTruyVanTraVeDL($link,"SELECT gia_tri_giam FROM tbl_khuyenmai Where ma_coupon = 'macoupon';");           
+               $row = mysqli_fetch_assoc($coupon);
+               if( $row!=null){  
+                    echo"<label for='giamgia' class='form-label'>Giảm giá</label>";
+                    echo "<input type='text' id='giamgia' name='giamgia' readonly ='readonly'class='form-input' value=".$row["gia_tri_giam"].">";
+                }
+                else{
+                    echo"<label for='giamgia' class='form-label'>Giảm giá</label>";
+                    echo "<input type='text' id='giamgia' name='giamgia' readonly ='readonly'class='form-input' value=''>";
+                }
               ?>
               
             </div>
@@ -106,13 +111,14 @@
                 <option value="2">Đã giao</option>              
                 </select>
           </div>
-     
+        </div>
         <!-- Row 6 -->
+        
         <div class="form-group">
             <label for="ghichu" class="form-label">Ghi chú</label>
             <input type="text" id="ghichu" name="ghichu" class="form-input" value=""/>
           </div>
-      
+       
         <div class="edit-action">
           <input type="submit" value="Thêm" class="edit-btn" />
           <input type="button" value="Huỷ" class="edit-btn" onclick="window.location.href = 'donhang.php?opt=view_dh'"/>

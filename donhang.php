@@ -39,7 +39,7 @@
       <div class="container">
         <div class="home-title">
           <h1 class="title">Quản lý đơn hàng</h1>
-          <button class="add-new-button" onclick="window.location.href = 'them-donhang.php?opt=add_dh'">+ Thêm mới</button> 
+          <button class="add-new-button" onclick="window.location.href = 'themdonhang.php?opt=add_dh'">+ Thêm mới</button> 
         </div>
       </div>
     </section>
