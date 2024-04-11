@@ -17,8 +17,6 @@
     <link rel="stylesheet" href="css/header.css" />
     <!--Thư viên flatpickr để chọn ngày giờ-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <!-- Scripts -->
-    <script src="./js/scripts.js"></script>
   </head>
   <body>
     <!-- Header -->
