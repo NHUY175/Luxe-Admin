@@ -41,7 +41,7 @@
       <div class="container">
         <div class="home-title">
           <h1 class="title">Quản lý đơn hàng</h1>
-          <button class="add-new-button" onclick="window.location.href = 'themdonhang.php?opt=add_dh'">+ Thêm mới</button> 
+          
         </div>
       </div>
     </section>
@@ -104,7 +104,7 @@
               echo "<td>";
               echo "<div class='action'>";
               echo "<a href='suadonhang.php?id=".$row["ma_don_hang"]."'><img src='./icon/khuyenmai-edit.svg' alt='Sửa' /></a>";   //Dẫn qua page sửa hoadon với tham số mã hoadon trên URL 
-              echo "<a href='?opt=del_hd&id=".$row["ma_don_hang"]."' onclick='return confirm(\"Bạn có chắc chắn muốn xoá đơn hàng ".$row["ma_don_hang"]."?\");'><img src='./icon/khuyenmai-delete.svg' alt='Xóa' /></a>";  
+              echo "<a href='?opt=del_dh&id=".$row["ma_don_hang"]."' onclick='return confirm(\"Bạn có chắc chắn muốn xoá đơn hàng ".$row["ma_don_hang"]."?\");'><img src='./icon/khuyenmai-delete.svg' alt='Xóa' /></a>";  
               echo "</div>";
               echo "</td>";
               echo "</tr>";
@@ -212,7 +212,7 @@
               $result = chayTruyVanKhongTraVeDL($link, $sql);
               if ($result) {
                 echo "<script>alert('Xoá đơn hàng thành công!');</script>";
-                echo "<script>window.location.href = 'donghang.php?opt=view_dh';</script>";
+                echo "<script>window.location.href = 'donhang.php?opt=view_dh';</script>";
               } else {
                 echo "<script>alert('Xoá đơn hàng thất bại!');</script>";
                 echo "<script>window.location.href = 'donhang.php?opt=view_dh';</script>";
@@ -237,6 +237,7 @@
                 $_phuong_thuc_thanh_toan = $_POST["phuongthucthanhtoan"];
                 $_tinh_trang = $_POST["tinhtrang"];
                 $_ghi_chu = $_POST["ghichu"];
+                echo $_ghi_chu ;
                 // Xử lý cơ sở dữ liệu 
                 // Cập nhật ở bảng khuyến mãi
                 $sql_cp = "UPDATE tbl_donhang SET ngay_tao='$_ngay_tao', dia_chi_giao_hang=' $_dia_chi_giao', tong_tien=$_tong_tien,giam_gia=$_giam_gia, tong_thanh_toan= $_tong_thanh_toan, phuong_thuc_thanh_toan='$_phuong_thuc_thanh_toan', tinh_trang='$_tinh_trang',ghi_chu='$_ghi_chu', ma_khach_hang=$_ma_khach_hang, ma_coupon='$_ma_coupon' WHERE ma_don_hang=$_ten_dh"; // Thêm điều kiện WHERE để chỉ cập nhật hàng cụ thể
@@ -246,11 +247,14 @@
                 // Kiểm tra update
                 if($result){
                     echo "<script>alert('Cập nhật thành công');</script>";
-                    echo "<script>window.location.href = 'donghang.php?opt=view_cp';</script>";
+                    echo "<script>window.location.href = 'donhang.php?opt=view_dh';</script>";
                 } else {
                     echo "<script>alert('Cập nhật thất bại');</script>";
-                    echo "<script>window.location.href = 'donhang.php?opt=view_cp';</script>";
+                    echo "<script>window.location.href = 'donhang.php?opt=view_dh';</script>";
                 }
+            }
+            else {
+              echo "<script>alert('Cập nhật thất bại');</script>";
             }
             giaiPhongBoNho($link,$result);
         }        
