@@ -70,6 +70,7 @@
                 <th>Ghi chú</th>
                 <th>Mã khách hàng</th>
                 <th>Mã Coupon</th>
+                <th>Tác vụ</th>
           </tr>
         </thead>
         <tbody>
@@ -98,6 +99,12 @@
               echo "<td>" . $row["ghi_chu"] . "</td>";
               echo "<td>" . $row["ma_khach_hang"] . "</td>";
               echo "<td>" . $row["ma_coupon"] . "</td>";
+              echo "<td>";
+              echo "<div class='action'>";
+              echo "<a href='suadonhang.php?id=".$row["ma_don_hang"]."'><img src='./icon/khuyenmai-edit.svg' alt='Sửa' /></a>";   //Dẫn qua page sửa hoadon với tham số mã hoadon trên URL 
+              echo "<a href='?opt=del_hd&id=".$row["ma_don_hang"]."' onclick='return confirm(\"Bạn có chắc chắn muốn xoá đơn hàng ".$row["ma_don_hang"]."?\");'><img src='./icon/khuyenmai-delete.svg' alt='Xóa' /></a>";  
+              echo "</div>";
+              echo "</td>";
               echo "</tr>";
               }
               giaiPhongBoNho($link,$result);
@@ -185,7 +192,28 @@
               }        
               giaiPhongBoNho($link, $rs);
         }
-        
+
+         //Delete
+         function delete_dh() {
+            $link = null;
+            taoKetNoi($link);
+            if (isset($_GET["id"])) {
+              $_ma_don_hang = $_GET["id"];
+              // Xoá hóa đơn từ bảng tbl_donhang
+              $sql = "DELETE FROM tbl_donhang WHERE ma_don_hang=".$_ma_don_hang;
+              $result = chayTruyVanKhongTraVeDL($link, $sql);
+              if ($result) {
+                echo "<script>alert('Xoá đơn hàng thành công!');</script>";
+                echo "<script>window.location.href = 'donghang.php?opt=view_dh';</script>";
+              } else {
+                echo "<script>alert('Xoá đơn hàngn thất bại!');</script>";
+                echo "<script>window.location.href = 'donhang.php?opt=view_dh';</script>";
+              }
+            }
+            giaiPhongBoNho($link, $result);
+         }
+
+
         //Xử lý các option
         if (isset($_GET["opt"])) { 
             $_opt = $_GET["opt"];
