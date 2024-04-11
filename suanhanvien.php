@@ -14,6 +14,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/nhanvien.css" />
+    <link rel="stylesheet" href="css/header.css" />
 
     <!-- Scripts -->
     <script src="./js/script.js"></script>

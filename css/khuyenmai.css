@@ -10,6 +10,7 @@
     display: flex;
     align-items: center;
     padding: 9px 0;
+    
   }
   
   .home-title .title {
@@ -17,6 +18,7 @@
     color: #f86624;
     font-size: 3rem;
     font-weight: 700;
+    
   }
   
   /* Main Content Home*/

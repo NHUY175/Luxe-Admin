@@ -1,23 +1,23 @@
 
-  .container {
-    max-width: calc(100%);
-    background-color: #ffffff;
-    padding: 15px 30px;
-    /* không để margin: auto vì nếu vậy sẽ mặc định margin top+bottom = 0 > sau này sẽ ghi đè*/
-  }
-  /* Home Title */
-  .home-title {
-    display: flex;
-    align-items: center;
-    padding: 9px 0;
-  }
-  
-  .home-title .title {
-    margin-left: 10px;
-    color: #f86624;
-    font-size: 3rem;
-    font-weight: 700;
-  }
+.container {
+  max-width: calc(100%);
+  background-color: #ffffff;
+  padding-left: 60px;
+  /* không để margin: auto vì nếu vậy sẽ mặc định margin top+bottom = 0 > sau này sẽ ghi đè*/
+}
+/* Home Title */
+.home-title {
+  display: flex;
+  align-items: center;
+  padding: 9px 0;
+}
+
+.home-title .title {
+  margin-left: 10px;
+  color: #f86624;
+  font-size: 3rem;
+  font-weight: 700;
+}
   
   .page-action {
     text-align: center;
@@ -36,6 +36,7 @@
     font-family: Quicksand;
     font-size: 1.8rem;
     font-weight: 600;
+    cursor: pointer;
   }
   /* Main Content Home*/
   #main-content {
@@ -96,6 +97,7 @@
     font-family: Quicksand;
     font-size: 1.8rem;
     font-weight: 600;
+    cursor: pointer;
   }
   
   /* Danh sách khách hàng - Table */
@@ -268,6 +270,7 @@
     font-family: Quicksand;
     font-size: 1.8rem;
     font-weight: 600;
+    cursor: pointer;
   }
   
   .file-pro {

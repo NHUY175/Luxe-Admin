@@ -14,6 +14,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/donhang.css" />
+    <link rel="stylesheet" href="css/header.css" />
   </head>
   <body>
     <!-- Header -->
@@ -35,8 +36,8 @@
       giaiPhongBoNho($link,$so_luong_don_hang);
     ?>
     <!-- Page Title -->
-    <section id="page-title">
-      <div class="container">
+    <section id="page-title" >
+      <div class="container" style ="background-color: #ffffff;">
         <div class="home-title">
           <h1 class="title">Quản lý đơn hàng</h1>
           <button class="add-new-button" onclick="window.location.href = 'themdonhang.php?opt=add_dh'">+ Thêm mới</button> 

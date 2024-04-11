@@ -14,6 +14,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/khachhang.css" />
+    <link rel="stylesheet" href="css/header.css" />
     <!-- Scripts -->
     <script src="./khachhang.js/scripts.js"></script>
     <!--Thư viên flatpickr để chọn ngày giờ-->

@@ -41,7 +41,7 @@
         <div class="home-title">
           <img src="./icon/nhanvien-diamond-2.svg" alt="" />
           <h1 class="title">Danh sách nhân viên</h1>
-          <div class="edit-btn-addnv" onclick="window.location.href = 'themnhanvien.php?opt=add_nv'" >Thêm mới</button>
+          <div class="add-new-button2" onclick="window.location.href = 'themnhanvien.php?opt=add_nv'" >Thêm mới</button>
         </div>
       </div>
     </section>
