@@ -126,7 +126,7 @@
                     //Tạo câu lệnh SQL search giá trị giảm
                     $sql = "SELECT ma_khach_hang, ho_ten, gioi_tinh, ngay_sinh, email, so_dien_thoai, dia_chi
                             FROM tbl_khachhang
-                            WHERE ho_ten = '$_giatri'";
+                            WHERE ho_ten LIKE '%$_giatri%'";
                 } else if ($_dieukien == 3) {
                     //Tạo câu lệnh SQL search trạng thái
                     $sql = "SELECT ma_khach_hang, ho_ten, gioi_tinh, ngay_sinh, email, so_dien_thoai, dia_chi
@@ -195,7 +195,7 @@
                 echo "<script>window.location.href = 'khachhang.php?opt=view_kh';</script>";
             }
             
-            giaiPhongBoNho($link);
+            giaiPhongBoNho($link, $result);
             }
             // Add
             function add_kh() {
@@ -227,7 +227,7 @@
                 echo "<script>window.location.href = 'khachhang.php?opt=view_kh';</script>";
                 }
               }
-              giaiPhongBoNho($link);
+              giaiPhongBoNho($link,$rs);
             }
             // Update
             function update_kh()

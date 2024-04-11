@@ -259,7 +259,7 @@
                     echo "<script>window.location.href = 'ds-khuyenmai.php?opt=view_cp';</script>";
                 }
             }
-            giaiPhongBoNho($link,$rs);
+            giaiPhongBoNho($link,$result);
         }        
           //Xử lý các option
           if (isset($_GET["opt"])) { 
