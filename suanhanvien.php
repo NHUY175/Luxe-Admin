@@ -14,14 +14,12 @@
     <!-- Styles -->
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/nhanvien.css" />
+    <link rel="stylesheet" href="css/header.css" />
 
     <!-- Scripts -->
     <script src="./js/script.js"></script>
     <!--Thư viên flatpickr để chọn ngày giờ-->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   </head>
   <body>
     <!-- Header -->
@@ -118,7 +116,7 @@
                 locale: "vi"
             });
         </script>   
-          <div class="edit-action">
+        <div class="edit-action">
             <button type="submit" class="edit-btn" name="submit_btn"> Cập nhật </button>
             <button type="button" class="edit-btn" onclick="window.location.href = 'nhanvien.php?opt=view_nv'"> Huỷ </button>
         </div>

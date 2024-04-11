@@ -14,6 +14,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/khuyenmai.css" />
+    <link rel="stylesheet" href="css/header.css" />
   </head>
   <body>
     <!-- Header -->
@@ -35,12 +36,12 @@
       giaiPhongBoNho($link,$so_luong_ma_coupon);
     ?>
     <!-- Page Title -->
-    <section id="page-title">
+    <section id="page-title" style ="background-color: #ffffff;">
       <div class="container">
         <div class="home-title">
           <img src="./icon/khuyenmai-diamond-2.svg" alt="" />
-          <h1 class="title">Danh sách coupon</h1>
-          <button class="add-new-button" onclick="window.location.href = 'them-khuyenmai.php?opt=add_cp'" >Thêm mới</button>
+          <h1 class="title" style="white-space: nowrap;">Danh sách coupon</h1>
+          <button type="button" class="add-new-button" onclick="window.location.href = 'them-khuyenmai.php?opt=add_cp'">Thêm mới</button>
         </div>
       </div>
     </section>

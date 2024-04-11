@@ -12,7 +12,7 @@
   <!-- Styles -->
   <link rel="stylesheet" href="css/reset.css" />
   <link rel="stylesheet" href="css/danhmuc.css" />
-  <link rel="stylesheet" href="css/responsinve.css" />
+  <link rel="stylesheet" href="css/header.css" />
   <!-- Scripts -->
   <script src="./js/scripts.js"></script>
   <!-- FONT AWESOME - THƯ VIỆN ICON -->
