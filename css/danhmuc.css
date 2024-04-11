@@ -1,4 +1,3 @@
-
 /*============== Home Title ===============*/
 .home-title-DMSP {
   display: flex;
@@ -35,8 +34,7 @@
 }
 /* ==========  trang "Cập nhật danh mục  ========= */
 .container-title-danhmuc {
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-  margin-bottom: 15px;
+  /* box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25); */
   background-color: white;
 }
 .container-title-edit {
@@ -66,9 +64,6 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
-.info-cate-add {
-  margin: auto;
 }
 .info-cate-name {
   font-weight: 700;
