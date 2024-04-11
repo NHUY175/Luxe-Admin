@@ -6,7 +6,6 @@
    }
    .home-title{
     display: flex;
-    justify-content: space-between;
    }
    .home-title .title{
     font-weight: bold;
@@ -20,6 +19,7 @@
     border-radius: 5px;
     padding: 10px 20px;
     margin: 20px;
+    margin-left: 60%;
     color: #0f0f0f;
     font-weight: bold;
     font-size: 1.5rem;
