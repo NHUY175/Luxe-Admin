@@ -18,6 +18,7 @@
               <li><a href="#!">KHÁCH HÀNG</a></li>
               <li><a href="#!">NHÂN VIÊN</a></li>
               <li><a href="#!">THỐNG KÊ</a></li>
+              <li><a href="dangxuat.php">ĐĂNG XUẤT</a></li>
             </ul>
           </nav>
 
