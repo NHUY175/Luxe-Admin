@@ -80,7 +80,7 @@
                 <label for="NgayTG" class="form-label">Ngày tham gia</label>
                 <input type="date" id="NgayTG" name="ntgnv" class="form-input" />
               </div>        
-            </div>       
+            </div>
         <!-- Chức năng chọn ngày giờ-->
         <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.js"></script>
         <script>
