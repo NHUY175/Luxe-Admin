@@ -14,6 +14,8 @@
     <!-- Styles -->
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/donhang.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    
   </head>
   <body>
     <!-- Header -->
