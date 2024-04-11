@@ -82,8 +82,7 @@
                         <option value="<?php echo $i; ?>" <?php if (isset($_POST['start-year']) && $_POST['start-year'] == $i) echo 'selected'; ?>><?php echo $i; ?></option>
                       <?php endfor; ?>
                   </select>
-                  </form>
-                  <form class="date-form2" id ="date-form2" method = "POST">
+                  <br> <br>
                     <label>Đến:</label>
                     <label for="end-day" class="endday">Ngày</label>
                     <select id="end-day" name="end-day" class="custom-select" onclick="day()" >
@@ -159,7 +158,6 @@
               <script>
                   function submitForms() {
                     document.getElementById("date-form1").submit();
-                    document.getElementById("date-form2").submit();
                   }
               </script>
             </div>
