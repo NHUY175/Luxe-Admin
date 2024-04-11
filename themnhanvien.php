@@ -50,39 +50,39 @@
             <input type="text" id="hotennv" name="hotennv" class="form-input"/>
             </div>
             <div class="form-group">
-                <label for="sdtnv" class="form-label">Số điện thoại</label>
-                <input type="text" id="sdtnv" name="sdtnv" class="form-input"/>
+                <label for="sodienthoainv" class="form-label">Số điện thoại</label>
+                <input type="text" id="sodienthoainv" name="sodienthoainv" class="form-input"/>
             </div>
         </div>
         <!-- Row 2 -->
         <div class="form-row">
                 <div class="form-group">
-                <label for="Gioitinh" class="form-label">Giới tính</label>
-                <select name="Gioitinh" id="Gioitinh" class="form-input">
+                <label for="gioitinhnv" class="form-label">Giới tính</label>
+                <select name="gioitinhnv" id="gioitinhnv" class="form-input">
                     <option value="Nữ">Nữ</option>
                     <option value="Nam">Nam</option>
                 </select>
               </div>
               <div class="form-group">
-                <label for="DCcutru" class="form-label">Địa chỉ cư trú</label>
-                <input type="text" id="dcctnv" name="dcctnv" class="form-input" />
+                <label for="diachicutru" class="form-label">Địa chỉ cư trú</label>
+                <input type="text" id="diachicutru" name="diachicutru" class="form-input" />
               </div>
             </div>
         <!-- Row 3 -->
         <div class="form-row">
             <div class="form-group">
-                <label for="Email" class="form-label">Email nhân viên</label>
-                <input type="email" id="Email" name="Email" class="form-input"/>
+                <label for="emailnv" class="form-label">Email nhân viên</label>
+                <input type="emailnv" id="emailnv" name="emailnv" class="form-input"/>
             </div>
               <div class="form-group">
-                <label for="NgayTG" class="form-label">Ngày tham gia</label>
-                <input type="date" id="NgayTG" name="ntgnv" class="form-input" />
+                <label for="ngaythamgia" class="form-label">Ngày tham gia</label>
+                <input type="date" id="ngaythamgia" name="ngaythamgia" class="form-input" />
               </div>        
             </div>
         <!-- Chức năng chọn ngày giờ-->
         <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.js"></script>
         <script>
-            flatpickr('#NgayTG', {
+            flatpickr('#ngaythamgia', {
                 enableTime: true,
                 dateFormat: "Y-m-d",
                 locale: "vi"
