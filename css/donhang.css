@@ -14,7 +14,8 @@
     margin: 25px 0px;
    }
    .home-title button{
-    background-color: #ffbe98;
+    display: none;
+    /* background-color: #ffbe98;
     text-decoration: none;
     border-radius: 5px;
     padding: 10px 20px;
@@ -23,7 +24,7 @@
     color: #0f0f0f;
     font-weight: bold;
     font-size: 1.5rem;
-    cursor: pointer;
+    cursor: pointer; */
    }
    .home-title button:hover{
     background-color: #ffbe98;

@@ -212,7 +212,7 @@
               $result = chayTruyVanKhongTraVeDL($link, $sql);
               if ($result) {
                 echo "<script>alert('Xoá đơn hàng thành công!');</script>";
-                echo "<script>window.location.href = 'donghang.php?opt=view_dh';</script>";
+                echo "<script>window.location.href = 'donhang.php?opt=view_dh';</script>";
               } else {
                 echo "<script>alert('Xoá đơn hàng thất bại!');</script>";
                 echo "<script>window.location.href = 'donhang.php?opt=view_dh';</script>";

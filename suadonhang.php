@@ -50,7 +50,7 @@
             $row = mysqli_fetch_assoc($result);
         }
     ?>
-      <form action="donhang.php?opt=update_dh" class="edit-bill" method="post" enctype="multipart/form-data">
+      <form action="donhang.php?opt=upd_dh" class="edit-bill" method="post" enctype="multipart/form-data">
       <!-- Row 1 -->
         <div class="form-row">
           <div class="form-group">
