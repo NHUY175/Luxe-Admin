@@ -32,7 +32,7 @@
   $nhanvien = chayTruyVanTraVeDL($link, "SELECT COUNT(*) AS so_luong_nhan_vien FROM tbl_nhanvien");
   $so_luong_nhan_vien = mysqli_fetch_assoc($nhanvien)["so_luong_nhan_vien"];
   // Tính toán số trang
-  $so_trang = ceil($so_luong_nhan_vien / 10);
+  $so_trang = ceil($so_luong_nhan_vien / 5);
   giaiPhongBoNho($link, $so_luong_nhan_vien);
   ?>
     <!-- Page Title -->
@@ -51,8 +51,8 @@
     <form action="?opt=search_nv" method="post" class="filter-nv">
       <select name="filterNV" id="filterNV" class="filter">
         <option value="0">--Chọn điều kiện lọc--</option>
-        <option value="1">Mã Sản phẩm</option>
-        <option value="2">Tên Sản phẩm</option>
+        <option value="1">Mã nhân viên</option>
+        <option value="2">Tên nhân viên</option>
       </select>
       <input type="text" id="giatri" class="filter-input" />
       <input type="image" src="./icon/nhanvien-search.svg" alt="" class="filter-btn">
@@ -82,9 +82,9 @@
           //Xác định trang hiện tại
           $trang_hien_tai = isset($_GET["trang"]) ? $_GET["trang"] : 1;
           //Kết nối và lấy dữ liệu từ CSDL
-          $nhanvien_start = ($trang_hien_tai - 1) * 10;
-          $result = chayTruyVanTraVeDL($link, "SELECT ma_nhan_vien, ho_ten, gioi_tinh, email, so_dien_thoai, dia_chi_cu_tru, ngay_tham_gia FROM tbl_nhanvien LIMIT $nhanvien_start, 10");
-          while ($row = mysqli_fetch_assoc($result)) {
+          $nhanvien_start = ($trang_hien_tai - 1) * 5;
+          $rs = chayTruyVanTraVeDL($link, "SELECT ma_nhan_vien, ho_ten, gioi_tinh, email, so_dien_thoai, dia_chi_cu_tru, ngay_tham_gia FROM tbl_nhanvien LIMIT $nhanvien_start, 5");
+          while ($row = mysqli_fetch_assoc($rs)) {
             echo "<tr>";
               echo "<td>" . $row["ma_nhan_vien"] . "</td>";
               echo "<td>" . $row["ho_ten"] . "</td>";
@@ -101,7 +101,7 @@
               echo "</td>";
               echo "</tr>";
               }
-          giaiPhongBoNho($link, $result);
+          giaiPhongBoNho($link, $rs);
         }
           //Search
           function search_nv()
@@ -114,12 +114,16 @@
               $_giatri = $_POST["giatri"];
               if ($_filterNV == 0) {
                 //Tạo câu lệnh SQL search mã nhân viên
-                $sql = "SELECT ma_nhan_vien, ho_ten, gioi_tinh, email, so_dien_thoai, dia_chi_cu_tru, ngay_tham_gia FROM tbl_nhanvien WHERE ma_nhan_vien = $_giatri";
+                $sql = "SELECT ma_nhan_vien, ho_ten, gioi_tinh, email, so_dien_thoai, dia_chi_cu_tru, ngay_tham_gia 
+                FROM tbl_nhanvien WHERE ma_nhan_vien = $_giatri";
               } else if ($_filterNV == 1) {
                 //Tạo câu lệnh SQL search tên nhân viên
-                $sql = "SELECT ma_nhan_vien, ho_ten, gioi_tinh, email, so_dien_thoai, dia_chi_cu_tru, ngay_tham_gia FROM tbl_nhanvien WHERE ho_ten LIKE '%" . $_giatri . "%'";
+                $sql = "SELECT ma_nhan_vien, ho_ten, gioi_tinh, email, so_dien_thoai, dia_chi_cu_tru, ngay_tham_gia 
+                FROM tbl_nhanvien WHERE ho_ten LIKE '%" . $_giatri . "%'";
               }
               $rs = chayTruyVanTraVeDL($link, $sql);
+
+              //Kiểm tra số lượng dòng trả về
               while ($row = mysqli_fetch_assoc($rs)) {
                 if ($row["ma_nhan_vien"] == null) {
                   echo "<script>alert('Nhân viên không tồn tại!');</script>";
@@ -133,7 +137,8 @@
                   echo "<td>" . $row["so_dien_thoai"] . "</td>";
                   echo "<td>" . $row["dia_chi_cu_tru"] . "</td>";
                   echo "<td>" . $row["ngay_tham_gia"] . "</td>";
-                  echo "<td>
+                  echo "<td>;
+            
                       <div class='action'>
                         <a href='./suanhanvien.php?id='><img src='./icon/nhanvien-edit.svg' alt='Sửa' /></a>
                         <a href='?opt=del_nv&id=" . $row["ma_nhan_vien"] . "'><img src='./icon/nhanvien-delete.svg' alt='Xóa' /></a>
@@ -155,8 +160,8 @@
               $_ma_nhan_vien = $_GET["id"];
               // Xoá nhân viên từ bảng tbl_nhanvien
               $sql = "DELETE FROM tbl_nhanvien WHERE ma_nhan_vien=" . $_ma_nhan_vien;
-              $result = chayTruyVanKhongTraVeDL($link, $sql);
-              if ($result) {
+              $rs = chayTruyVanKhongTraVeDL($link, $sql);
+              if ($rs) {
                 echo "<script>alert('Xoá nhân viên thành công!');</script>";
                 echo "<script>window.location.href = 'nhanvien.php?opt=view_nv';</script>";
               } else {
@@ -164,7 +169,7 @@
                 echo "<script>window.location.href = 'nhanvien.php?opt=view_nv';</script>";
               }
             }
-            giaiPhongBoNho($link, $result);
+            giaiPhongBoNho($link, $rs);
           }
         // Add
         function add_nv()
@@ -172,7 +177,8 @@
             $link = null;
             taoKetNoi($link);
             //Kiểm tra có phương thức POST gửi lên hay không
-            if (isset($_POST["hotennv"]) && isset($_POST["gioitinhnv"]) && isset($_POST["emailnv"]) && isset($_POST["sodienthoainv"]) && isset($_POST["diachicutru"]) && isset($_POST["ngaythamgia"])) {
+            if (isset($_POST["hotennv"]) && isset($_POST["gioitinhnv"]) && isset($_POST["emailnv"]) && isset($_POST["sodienthoainv"]) 
+            && isset($_POST["diachicutru"]) && isset($_POST["ngaythamgia"])) {
               $_ho_ten = $_POST["hotennv"];
               $_gioi_tinh = $_POST["gioitinhnv"];
               $_email = $_POST["emailnv"];
@@ -181,7 +187,9 @@
               $_ngay_tham_gia = $_POST["ngaythamgia"];
 
               //Tạo câu lệnh SQL thêm vào bảng nhân viên
-              $sql = "INSERT INTO tbl_nhanvien (ho_ten, gioi_tinh, email, so_dien_thoai, dia_chi_cu_tru, ngay_tham_gia) values ('$_ho_ten','$_gioi_tinh','$_email', '$_so_dien_thoai','$_dia_chi_cu_tru' , '$_ngay_tham_gia')";
+              $sql = "INSERT INTO tbl_nhanvien (ho_ten, gioi_tinh, email, so_dien_thoai, dia_chi_cu_tru, ngay_tham_gia) values 
+              ('$_ho_ten','$_gioi_tinh','$_email', '$_so_dien_thoai','$_dia_chi_cu_tru' , '$_ngay_tham_gia')";
+              
               //Kiểm tra biến tên có dữ liệu hay không
               if ($_ho_ten != "") {
                 // Thêm nhân viên thành công

@@ -61,6 +61,7 @@
           $row = mysqli_fetch_assoc($result);
         
             ?>
+            
             <form action= "nhanvien.php?opt=update_nv" class="edit-nhanvien" method="post" enctype="multipart/form-data">
             <!-- Row 1 -->
             <input type="hidden" name="manv" value="<?php echo $row["ma_nhan_vien"]; ?>">

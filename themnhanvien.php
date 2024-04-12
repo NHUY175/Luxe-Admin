@@ -29,7 +29,8 @@
       <div class="index_main">
         <div class="home-title">
           <img src="./icon/nhanvien-settings.svg" alt="" />
-          <h1 class="title">Cập nhật danh sách nhân viên</h1>
+          <h1 class="title">Thêm nhân viên mới</h1>
+
           <button type="button" onclick="resetForm()" class="add-new-button2">Làm mới</button>
           <!--Chức năng làm mới form-->
           <script>
