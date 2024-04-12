@@ -146,11 +146,12 @@
                       $link = null;
                       taoKetNoi($link); 
 
-                      // Truy vấn để lấy tổng số lượng đơn hàng
+                      // Truy vấn để lấy tổng số lượng sản phẩm bán ra
                       $query = "SELECT SUM(ctdh.so_luong) AS total_quantity 
                                 FROM tbl_donhang dh 
                                 INNER JOIN tbl_chitiet_donhang ctdh ON dh.ma_don_hang = ctdh.ma_don_hang 
-                                WHERE dh.ngay_tao >= '$startYear-$startMonth-$startDay 00:00:00' AND dh.ngay_tao <= '$endYear-$endMonth-$endDay 23:59:59'";
+                                WHERE dh.ngay_tao >= '$startYear-$startMonth-$startDay 00:00:00' AND dh.ngay_tao <= '$endYear-$endMonth-$endDay 23:59:59'
+                                AND dh.tinh_trang != 'Chưa giao'";
                       $result = chayTruyVanTraVeDL($link, $query);
                       $rows = mysqli_fetch_assoc($result);
                     }
@@ -198,6 +199,7 @@
                             INNER JOIN tbl_sanpham sp ON ctdh.ma_san_pham = sp.ma_san_pham 
                             INNER JOIN tbl_donhang dh ON ctdh.ma_don_hang = dh.ma_don_hang 
                             WHERE dh.ngay_tao >= '$startYear-$startMonth-$startDay 00:00:00' AND dh.ngay_tao <= '$endYear-$endMonth-$endDay 23:59:59' 
+                            AND dh.tinh_trang != 'Chưa giao'
                             GROUP BY ctdh.ma_san_pham ORDER BY `top_quantity` 
                             DESC LIMIT 3";
                   
