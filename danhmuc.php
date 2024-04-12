@@ -98,12 +98,10 @@
         <select name="dieukien" id="filterDMSP" class="filter-DMSP">
           <option value="-1">-- Tìm kiếm --</option>
           <option value="0" <?php if (isset($_POST["dieukien"]) && $_POST["dieukien"] == 0)
-            echo 'selected'; ?>>Mã
-            danh
+            echo 'selected'; ?>>Mã danh
             mục</option>
           <option value="1" <?php if (isset($_POST["dieukien"]) && $_POST["dieukien"] == 1)
-            echo 'selected'; ?>>Tên
-            danh
+            echo 'selected'; ?>>Tên danh
             mục</option>
         </select>
         <input type="text" name="giatri" id="data" class="filter-input"
@@ -138,10 +136,6 @@
 
             // Lấy dữ liệu từ CSDL
             $query = "SELECT * FROM tbl_danhmuc LIMIT $danhmuc_start, 10";//Giới hạn mỗi trang show 10 danh mục
-            $result = chayTruyVanTraVeDL($link, $query);
-
-            // Lấy dữ liệu từ CSDL
-            $query = "SELECT * FROM tbl_danhmuc LIMIT $danhmuc_start, 10";
             $result = chayTruyVanTraVeDL($link, $query);
 
             // Hiển thị dữ liệu
@@ -381,7 +375,8 @@
             // Giải phóng bộ nhớ
             giaiPhongBoNho($link, $result);
           }
-          //tùy chọn
+
+          //Xử lý các tùy chọn
           if (isset($_GET["opt"])) {
             $_opt = $_GET["opt"];
             switch ($_opt) {
