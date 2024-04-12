@@ -40,8 +40,9 @@
     <section id="page-title">
       <div class="container">
         <div class="home-title">
-          <h1 class="title">Quản lý đơn hàng</h1>
-          
+
+          <h1 class="title">Quản lý đơn hàng</h1> 
+
         </div>
       </div>
     </section>
@@ -50,9 +51,9 @@
       <!-- Search -->
       <form action="?opt=search_dh" method="post" class="filter-cp">
         <select name="dieukien" id="filterCP" class="filter">
-        <option value="0">--Chọn điều kiện lọc--</option>
-          <option value="1">Mã đơn hàng</option>
-          <option value="2">Tình trạng</option>
+            <option value="0">--Chọn điều kiện lọc--</option>
+            <option value="1">Mã đơn hàng</option>
+            <option value="2">Tình trạng</option>
         </select>
         <input type="text" name="giatri" id="data" class="filter-input" />
         <input type="image" src="./icon/khuyenmai-search.svg" class="filter-btn">
@@ -151,10 +152,11 @@
                         echo "<td>";
                         echo "<div class='action'>";
                         echo "<a href='suadonhang.php?id=".$row["ma_don_hang"]."'><img src='./icon/khuyenmai-edit.svg' alt='Sửa' /></a>";   //Dẫn qua page sửa hoadon với tham số mã hoadon trên URL 
-                        echo "<a href='?opt=del_hd&id=".$row["ma_don_hang"]."' onclick='return confirm(\"Bạn có chắc chắn muốn xoá đơn hàng ".$row["ma_don_hang"]."?\");'><img src='./icon/khuyenmai-delete.svg' alt='Xóa' /></a>";  
+                        echo "<a href='?opt=del_dh&id=".$row["ma_don_hang"]."' onclick='return confirm(\"Bạn có chắc chắn muốn xoá đơn hàng ".$row["ma_don_hang"]."?\");'><img src='./icon/khuyenmai-delete.svg' alt='Xóa' /></a>";  
                         echo "</div>";
                         echo "</td>";
                         echo "</tr>";
+                        
                     }
                 } else {
                     echo "<tr><td colspan='8'>Không tìm thấy đơn hàng</td></tr>";
