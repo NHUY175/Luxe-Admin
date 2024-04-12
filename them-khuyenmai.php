@@ -30,7 +30,7 @@
         <div class="home-title">
           <img src="./icon/sanpham-settings.svg" alt="" />
           <h1 class="title">Thêm coupon</h1>
-          <button type="button" onclick="resetForm()" class="add-new-button2">Làm mới</button>
+          <button type="button" onclick="resetForm()" class="add-new-button">Làm mới</button>
           <!--Chức năng làm mới form-->
           <script>
               function resetForm() {
