@@ -183,6 +183,7 @@
                         FROM tbl_donhang 
                         WHERE ngay_tao >= '$startYear-$startMonth-$startDay 00:00:00' 
                         AND ngay_tao <= '$endYear-$endMonth-$endDay 23:59:59'
+                        AND tinh_trang != 'Chưa giao'
                         GROUP BY thang_nam";
 
               $result = chayTruyVanTraVeDL($link, $query);
