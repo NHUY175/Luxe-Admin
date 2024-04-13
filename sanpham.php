@@ -165,8 +165,8 @@
                 echo "<td>" . $row["tong_so_luong"] . "</td>";
                 echo "<td>
                     <div class='action'>
-                      <a href='./suasanpham.php?id='><img src='./icon/edit.svg' alt='Sửa' /></a>
-                      <a href='?opt=del_sp&id=" . $row["ma_san_pham"] . "'><img src='./icon/delete.svg' alt='Xóa' /></a>
+                      <a href='./suasanpham.php?id='><img src='./icon/sanpham-edit.svg' alt='Sửa' /></a>
+                      <a href='?opt=del_sp&id=" . $row["ma_san_pham"] . "'><img src='./icon/sanpham-delete.svg' alt='Xóa' /></a>
                     </div>
                   </td>";
                 echo "</tr>";
