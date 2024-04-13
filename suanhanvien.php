@@ -73,6 +73,7 @@
               <div class="form-group">
                 <label for="sodienthoainv" class="form-label">Số điện thoại</label>
                 <input type="text" id="sodienthoainv" name="sodienthoainv" class="form-input" value="<?php echo $row["so_dien_thoai"]; ?>">
+                <span id="sodienthoai-error" class="error-message"></span> <!-- Thêm phần tử để chứa thông báo lỗi -->
               </div>
             </div>
             <!-- Row 2 -->
@@ -116,6 +117,66 @@
                 dateFormat: "Y-m-d",
                 locale: "vi"
             });
+            document.addEventListener('DOMContentLoaded', function() {
+        var sodienthoaiInput = document.getElementById('sodienthoainv');
+        var sodienthoaiError = document.getElementById('sodienthoai-error');
+
+        document.querySelector('form').addEventListener('submit', function(event) {
+            var sodienthoaiValue = sodienthoaiInput.value;
+            
+            if (sodienthoaiValue.length !== 10) {
+                sodienthoaiError.textContent = 'Số điện thoại phải có đúng 10 chữ số!';
+                sodienthoaiError.style.display = 'block'; // Hiển thị thông báo lỗi
+                event.preventDefault(); // Ngăn chặn việc gửi form nếu điều kiện không đúng
+            } else {
+                sodienthoaiError.textContent = ''; // Xóa nội dung thông báo nếu điều kiện đúng
+                sodienthoaiError.style.display = 'none'; // Ẩn thông báo lỗi
+            }
+        });
+
+        // Thêm sự kiện input để ẩn thông báo lỗi khi người dùng nhập lại dữ liệu
+        sodienthoaiInput.addEventListener('input', function() {
+            sodienthoaiError.textContent = ''; // Xóa nội dung thông báo khi người dùng bắt đầu nhập
+            sodienthoaiError.style.display = 'none'; // Ẩn thông báo lỗi
+        });
+    });
+    // Generate email
+    function removeVietnameseAccent(str) {
+        return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var hotenInput = document.getElementById('hotennv');
+        var emailInput = document.getElementById('emailnv');
+
+        hotenInput.addEventListener('input', function() {
+            var hotenValue = hotenInput.value.trim();
+            var lastname = '';
+            var firstname = '';
+
+            // Tách họ và tên
+            var hotenArray = hotenValue.split(' ');
+            if (hotenArray.length > 2) {
+                firstname = hotenArray[0];
+                lastname = hotenArray.pop();
+            } else if (hotenArray.length === 2) {
+                firstname = hotenArray[0];
+                lastname = hotenArray[1];
+            } else if (hotenArray.length === 1) {
+                lastname = hotenArray[0];
+            }
+
+            // Loại bỏ dấu tiếng Việt và chuyển thành lowercase
+            lastname = removeVietnameseAccent(lastname).toLowerCase();
+            firstname = removeVietnameseAccent(firstname).toLowerCase();
+
+            // Tạo địa chỉ email
+            var generatedEmail = lastname + '.' + firstname + '@luxe.com';
+
+            // Gán địa chỉ email vào ô nhập liệu
+            emailInput.value = generatedEmail;
+        });
+    });
         </script>   
         <div class="edit-action">
             <button type="submit" class="edit-btn" name="submit_btn"> Cập nhật </button>
