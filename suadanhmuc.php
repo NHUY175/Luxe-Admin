@@ -65,12 +65,9 @@
               <!-- Hiển thị hình ảnh hiện tại nếu có -->
               <?php if ($row["hinh_anh_danh_muc"]) { ?>
                 <img src="./img/<?php echo $row["hinh_anh_danh_muc"]; ?>" alt="Hình ảnh" width="200px" />
-                <!-- Hiển thị tên hình ảnh -->
+                <!-- Hiển thị tên hình ảnh hiện tại-->
                 <p><?php echo $row["hinh_anh_danh_muc"]; ?></p>
               <?php } ?>
-              <!-- Hiển thị tên hình ảnh -->
-
-              <input type="hidden" name="img_name" value="<?php echo $row["hinh_anh_danh_muc"]; ?>">
             </div>
             <div class="edit-action">
               <input type="submit" value="Cập nhật" class="btn btn-update" id="update-button" />

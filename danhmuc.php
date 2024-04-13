@@ -28,10 +28,6 @@
       document.getElementById("data").value = '';
       document.querySelector('.filter').submit(); // Gửi yêu cầu tìm kiếm với giá trị rỗng
     }
-    //history: quay trở lại trang trước đó
-    function GoBack() {
-      window.history.go(-1);
-    }
   </script>
 </head>
 
@@ -67,7 +63,6 @@
         </div>
       </div>
       <input type="reset" value="Làm mới" class="button-reset" title="Làm mới" onclick="ReloadPage()" ;>
-
     </div>
   </div>
   <!-- Main content -->
@@ -150,7 +145,7 @@
               //Sửa danh mục
               echo "<a href='suadanhmuc.php?id=" . $row["ma_danh_muc"] . "'><img src='./icon/sanpham-edit.svg' alt='Sửa' /></a>";
               //Xác nhận xóa danh mục
-              echo "<a href='?opt=del_dmsp&id=" . $row["ma_danh_muc"] . "' onclick='return confirm(\"Bạn có chắc chắn muốn xoá danh mục sản phẩm?  " . $row["ten_danh_muc"] . "?\");'>
+              echo "<a href='?opt=del_dmsp&id=" . $row["ma_danh_muc"] . "' onclick='return confirm(\"Bạn có chắc chắn muốn xoá danh mục sản phẩm - " . $row["ten_danh_muc"] . "?\");'>
               <img src='./icon/sanpham-delete.svg' alt='Xóa' /></a>";
               echo "</div>";
               echo "</td>";
@@ -218,6 +213,7 @@
             }
           }
 
+          //update
           function update_dmsp()
           {
             $link = null;
@@ -298,18 +294,19 @@
             taoKetNoi($link);
 
             // Xử lý form
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-              // Lấy dữ liệu từ form
-          
+            if (isset($_POST)) {
+
               // Lấy dữ liệu từ form hoặc từ dữ liệu cũ nếu form không được gửi đi
               $ten_danh_muc = isset($_POST["ten_danhmuc"]) ? $_POST["ten_danhmuc"] : ["ten_danh_muc"];
               $hinh_anh_danh_muc = ''; // Khởi tạo biến hình ảnh
+          
               // Kiểm tra xem $ten_danh_muc có phải là số hay không
               if (is_numeric($ten_danh_muc)) {
                 echo "<script>alert('Tên danh mục không được là số.');</script>";
                 echo "<script>window.location.href = 'danhmuc.php?opt=view_dmsp';</script>";
                 exit();
               }
+
               // Xử lý hình ảnh
               if (isset($_FILES["hinhanh"]) && $_FILES["hinhanh"]["error"] == 0) {
                 // Lưu trữ hình ảnh
@@ -321,13 +318,6 @@
                 $allowed_types = array('jpg', 'jpeg', 'png', 'gif', 'webp');
                 if (!in_array($imageFileType, $allowed_types)) {
                   echo "<script>alert('Chỉ chấp nhận các loại file JPG, JPEG, PNG, GIF và WEBP.');</script>";
-                  echo "<script>window.location.href = 'danhmuc.php?opt=view_dmsp';</script>";
-                  exit();
-                }
-
-                // Kiểm tra kích thước file
-                if ($_FILES["hinhanh"]["size"] > 500000) {
-                  echo "<script>alert('Kích thước file quá lớn.');</script>";
                   echo "<script>window.location.href = 'danhmuc.php?opt=view_dmsp';</script>";
                   exit();
                 }
