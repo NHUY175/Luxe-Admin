@@ -129,6 +129,9 @@
                     $sql = "SELECT ma_coupon, thoi_gian_bat_dau, thoi_gian_ket_thuc, trang_thai, gia_tri_giam, gia_tri_don_toi_thieu, luot_su_dung
                            FROM tbl_khuyenmai
                            WHERE trang_thai = '$_giatri'";
+                } else {
+                  echo "<script>alert('Vui lòng chọn điều kiện lọc!');</script>";
+                  echo "<script>window.location.href = 'ds-khuyenmai.php?opt=view_cp';</script>";
                 }
         
                 $rs = chayTruyVanTraVeDL($link, $sql);

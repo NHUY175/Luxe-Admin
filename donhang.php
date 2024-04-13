@@ -132,7 +132,10 @@
                     $sql = "SELECT *
                             FROM tbl_donhang
                             WHERE tinh_trang = '$_giatri'";
-                } 
+                } else {
+                  echo "<script>alert('Vui lòng chọn điều kiện lọc!');</script>";
+                  echo "<script>window.location.href = 'donhang.php?opt=view_dh';</script>";
+                }
                 $rs = chayTruyVanTraVeDL($link, $sql); 
                  // Kiểm tra số lượng dòng trả về
                  if(mysqli_num_rows($rs) > 0) {

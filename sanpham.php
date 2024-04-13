@@ -140,6 +140,9 @@
                         FROM tbl_sanpham AS s, tbl_bienthe AS bt
                         WHERE s.ma_san_pham = bt.ma_san_pham AND s.ten_san_pham LIKE '%" . $_giatri . "%'
                         GROUP BY s.ma_san_pham";
+            } else {
+              echo "<script>alert('Vui lòng chọn điều kiện lọc!');</script>";
+              echo "<script>window.location.href = 'sanpham.php?opt=view_sp';</script>";
             }
             $rs = chayTruyVanTraVeDL($link, $sql);
             while ($row = mysqli_fetch_assoc($rs)) {

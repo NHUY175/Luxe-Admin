@@ -54,7 +54,7 @@
         <option value="1">Mã nhân viên</option>
         <option value="2">Tên nhân viên</option>
       </select>
-      <input type="text" id="giatri" class="filter-input" />
+      <input type="text" name ="giatri" id="giatri" class="filter-input" />
       <input type="image" src="./icon/nhanvien-search.svg" alt="" class="filter-btn">
     </form>
       
@@ -112,14 +112,17 @@
             if (isset($_POST["filterNV"]) && isset($_POST["giatri"])) {
               $_filterNV = $_POST["filterNV"];
               $_giatri = $_POST["giatri"];
-              if ($_filterNV == 0) {
+              if ($_filterNV == 1) {
                 //Tạo câu lệnh SQL search mã nhân viên
                 $sql = "SELECT ma_nhan_vien, ho_ten, gioi_tinh, email, so_dien_thoai, dia_chi_cu_tru, ngay_tham_gia 
                 FROM tbl_nhanvien WHERE ma_nhan_vien = $_giatri";
-              } else if ($_filterNV == 1) {
+              } else if ($_filterNV == 2) {
                 //Tạo câu lệnh SQL search tên nhân viên
                 $sql = "SELECT ma_nhan_vien, ho_ten, gioi_tinh, email, so_dien_thoai, dia_chi_cu_tru, ngay_tham_gia 
                 FROM tbl_nhanvien WHERE ho_ten LIKE '%" . $_giatri . "%'";
+              } else {
+                echo "<script>alert('Vui lòng chọn điều kiện lọc!');</script>";
+                echo "<script>window.location.href = 'nhanvien.php?opt=view_nv';</script>";
               }
               $rs = chayTruyVanTraVeDL($link, $sql);
 

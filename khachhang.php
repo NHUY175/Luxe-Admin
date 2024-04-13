@@ -132,6 +132,9 @@
                     $sql = "SELECT ma_khach_hang, ho_ten, gioi_tinh, ngay_sinh, email, so_dien_thoai, dia_chi
                            FROM tbl_khachhang
                            WHERE so_dien_thoai = '$_giatri'";
+                } else {
+                  echo "<script>alert('Vui lòng chọn điều kiện lọc!');</script>";
+                  echo "<script>window.location.href = 'khachhang.php?opt=view_kh';</script>";
                 }
                 $rs = chayTruyVanTraVeDL($link, $sql);
                 while ($row = mysqli_fetch_assoc($rs)) {
