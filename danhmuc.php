@@ -147,7 +147,9 @@
               echo "<td><img src='./img/" . $row["hinh_anh_danh_muc"] . "'></td>";
               echo "<td>";
               echo "<div class='action'>";
+              //Sửa danh mục
               echo "<a href='suadanhmuc.php?id=" . $row["ma_danh_muc"] . "'><img src='./icon/sanpham-edit.svg' alt='Sửa' /></a>";
+              //Xác nhận xóa danh mục
               echo "<a href='?opt=del_dmsp&id=" . $row["ma_danh_muc"] . "' onclick='return confirm(\"Bạn có chắc chắn muốn xoá danh mục sản phẩm?  " . $row["ten_danh_muc"] . "?\");'>
               <img src='./icon/sanpham-delete.svg' alt='Xóa' /></a>";
               echo "</div>";
